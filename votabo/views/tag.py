@@ -16,7 +16,7 @@ from ..models import (
 @view_config(request_method="GET", route_name='tags', renderer='json', request_param="format=json")
 @view_config(request_method="GET", route_name='tags', renderer='json', xhr=True)
 def tag_list_xhr(request):
-    starts_with = request.GET.get("starts_with", "a")
+    starts_with = request.GET.get("starts_with", u"a")
     tags_min = 12
     if starts_with == "?":
         f = Tag.name.op("~")("^[^a-zA-Z]")
@@ -29,7 +29,7 @@ def tag_list_xhr(request):
 
 @view_config(request_method="GET", route_name='tags', renderer='tag/list.mako')
 def tag_list(request):
-    starts_with = request.GET.get("starts_with", "a")
+    starts_with = request.GET.get("starts_with", u"a")
     tags_min = 12
     if starts_with == "?":
         f = Tag.name.op("~")("^[^a-zA-Z]")

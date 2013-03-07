@@ -3,7 +3,7 @@ import transaction
 
 from pyramid import testing
 
-from votabo import configure_routes
+from votabo import *
 
 from votabo.lib import cache
 from votabo.models import (
@@ -20,6 +20,10 @@ class VotaboTest(unittest2.TestCase):
         self.config = testing.setUp()
 
         configure_routes(self.config)
+        configure_templates(self.config)
+        configure_locale(self.config)
+        configure_user(self.config)
+        #configure_auth(self.config)
 
         cache.fast.configure("dogpile.cache.memory")
         cache.slow.configure("dogpile.cache.memory")
