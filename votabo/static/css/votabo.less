@@ -1,0 +1,398 @@
+/*
+ * vi:ft=css
+ */
+* {
+    box-sizing: border-box;
+}
+IMG {
+	box-sizing: content-box;
+}
+
+BODY {
+	font-family: sans-serif;
+	font-size: 14px;
+	background: url(../img/bg.png);
+	margin: 0px;
+}
+
+@lightbg: #9CD493;
+@darkbg:  #ACE4A3;
+@border:  #7EB977;
+
+HEADER {
+	padding: 0px;
+	border-bottom: 1px solid @border;
+	margin-top: 0px;
+	margin-bottom: 16px;
+	padding: 8px;
+	background: @darkbg;
+	text-align: center;
+}
+FOOTER {
+	clear: both;
+	padding: 8px;
+	font-size: 0.7em;
+	text-align: center;
+	border-top: 1px solid @border;
+	background: @darkbg;
+}
+
+H1 {
+	font-size: 5em;
+	margin: 0px;
+	padding: 0px;
+	A {
+		color: black;
+	}
+}
+H3 {
+	text-align: center;
+	margin: 0px;
+}
+
+TABLE {
+	width: 100%;
+	font-size: 12px;
+}
+TABLE.small {
+	font-size: 9px;
+}
+THEAD {
+	font-weight: bold;
+}
+TD {
+	text-align: center;
+	vertical-align: top;
+}
+
+
+#subtitle {
+	width: 256px;
+	font-size: 0.75em;
+	margin: auto;
+	margin-top: -16px;
+	text-align: center;
+	border: 1px solid black;
+	border-top: none;
+	background: #DDD;
+}
+#flash {
+	background: #FF7;
+	display: block;
+	padding: 8px;
+	margin: 8px;
+	border: 1px solid #882;
+}
+
+TABLE.zebra {background: @darkbg; border-collapse: collapse; border: 1px solid @border;}
+TABLE.zebra TD {margin: 0px; border-top: 1px solid @border; padding: 2px;}
+TABLE.zebra TR:nth-child(odd) {background: @lightbg;}
+TABLE.zebra TR:nth-child(even) {background: @darkbg;}
+
+A         {color: #000099; text-decoration: none; font-weight: bold;}
+A:hover   {color: #000099; text-decoration: underline;}
+A:visited {color: #000099; text-decoration: none}
+A:active  {color: #000099; text-decoration: underline;}
+
+UL {
+	text-align: left;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*             the navigation bar, and all its blocks             *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+NAV {
+	width: 250px;
+	float: left;
+	text-align: center;
+	margin-left: 16px;
+}
+NAV .blockbody {
+	font-size: 0.85em;
+	text-align: center;
+}
+NAV TABLE {
+	width: 150px;
+}
+NAV TD {
+	vertical-align: middle;
+}
+NAV INPUT {
+	width: 100%;
+	padding: 0px;
+}
+NAV SELECT {
+	width: 100%;
+	padding: 0px;
+}
+NAV FORM {
+	margin-top: 8px;
+}
+
+.more:after {
+	content: " >>>";
+}
+
+.tag_count:before {
+	content: "(";
+}
+.tag_count:after {
+	content: ")";
+}
+
+#paginator .blockbody {
+	background: none;
+	border: none;
+	box-shadow: none;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                 the main part of each page                     *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+ARTICLE {
+	margin-left: 286px;
+	margin-right: 16px;
+	height: 1%;
+	margin-top: 24px;
+}
+
+ARTICLE SELECT {width: 150px;}
+INPUT, TEXTAREA {box-sizing: border-box;}
+TD>INPUT[type="button"] {width: 100%;}
+TD>INPUT[type="submit"] {width: 100%;}
+TD>INPUT[type="text"] {width: 100%;}
+TD>INPUT[type="password"] {width: 100%;}
+TD>SELECT {width: 100%;}
+TD>TEXTAREA {width: 100%;}
+    
+TABLE.form {width: 300px;}
+TABLE.form TD, TABLE.form TH {vertical-align: middle;}
+TABLE.form TBODY TD {text-align: left;}
+TABLE.form TBODY TH {text-align: right; padding-right: 4px; width: 1%;}
+TABLE.form TD + TH {padding-left: 8px;}
+
+*[onclick], H3[class~="shm-toggler"] {cursor: pointer;}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                     specific page types                        *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+#pagelist {
+	margin-top: 32px;
+}
+
+#tagmap A {
+	padding: 8px 4px 8px 4px;
+}
+
+SECTION>.blockbody,
+SECTION>DIV:first-child:last-child,
+H3 + DIV:last-child,
+.comment,
+.setupblock {
+	background: @darkbg;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	border: 1px solid @border;
+	padding: 8px;
+	font-size: 12px;
+}
+
+SECTION>H3 {
+	text-align: center;
+	background: @lightbg;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	border: 1px solid @border;
+	padding: 8px;
+}
+
+.thumb {
+	width: 226px;
+	display: inline-block;
+	zoom: 1; /* ie6 */
+	*display: inline; /* ie6 */
+	text-align: center;
+	margin-bottom: 8px;
+
+	IMG {
+		border: 1px solid @border;
+		background: @darkbg;
+		padding: 8px;
+	}
+}
+
+div#twitter_update_list li {
+	list-style:none;
+	padding-bottom:0px;
+	text-align:left;
+	margin-top:5px;
+	margin-bottom:5px;
+	border: solid 1px #000;
+	background: url(bg.png);
+}
+
+.username {
+	font-weight: bold;
+}
+
+#bans TD, .image_info TD {
+	vertical-align: middle;
+}
+#bans INPUT {
+	font-size: 0.85em;
+}
+
+.bgtop {
+	width: 100%;
+	height: 113px;
+}
+.bgtop TD {
+	text-align: center;
+}
+.bgtop .flags IMG {
+	width: 25px;
+	height: 16px;
+}
+
+.mini_upload INPUT {
+	width: 100%;
+}
+
+BODY.homepage {
+	text-align: center;
+
+	H1 {
+		font-size: 4em;
+		margin-top: 2em;
+	}
+	A {
+		text-decoration: none;
+	}
+	.linklist {
+		margin-top: 0px;
+		A {
+			margin-left: 12px;
+			margin-right: 12px;
+		}
+	}
+	.footer {
+		font-size: 10px;
+	}
+}
+
+BODY.post-read {
+	.post-info {
+		width: 100%;
+	}
+	.post-info TD {
+		vertical-align: top;
+	}
+	.post-info .ellipsis {
+		max-width: 400px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+.js .post-info .edit {display: none;}
+.js .post-info .view {display: block;}
+.no-js .post-info .edit {display: block;}
+.no-js .post-info .view {display: none;}
+
+
+.comment {
+	text-align: left;
+	position: relative;
+	word-wrap: break-word;
+
+	TEXTAREA,
+	INPUT {
+		width: 100%;
+	}
+}
+.comment:first-child {
+	margin-top: 0px;
+}
+.comment IMG {
+	max-width: 100%;
+}
+.comment .info {
+	background: @darkbg;
+	border: 1px solid @border;
+	visibility: hidden;
+	text-align: center;
+	padding: 8px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	z-index: 1;
+	box-shadow: 0px 0px 4px #000;
+	border-radius: 4px;
+}
+.comment:hover .info {
+	visibility: visible;
+}
+
+#comment-list-list .blockbody,
+#comment-list-recent .blockbody,
+#comment-list-image .blockbody,
+#comment-list-user .blockbody {
+	background: none;
+	border: none;
+	box-shadow: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+#image-list {
+	text-align: justify;
+}
+
+#paginator {
+	text-align: center;
+	padding: 2em;
+	font-weight: bold;
+
+	.pager_curpage, .pager_link, .pager_dotdot {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+}
+
+UL.tagit {
+	margin: 0px;
+
+	li.tagit-choice-read-only { 
+		padding: .0em .2em .0em .2em; 
+	} 
+	li.tagit-choice-editable { 
+		padding: .0em 18px .0em .2em; 
+	} 
+	li.tagit-new {
+		padding: .0em 4px .0em 0;
+	}
+}
+
+/*
+ * r34 specifics
+ */
+HEADER {
+	.flags, FORM, UL {
+		margin: 8px;
+	}
+}
+UL.menu {
+	font-weight: bold;
+	height: 1em;
+	LI {
+		list-style: none;
+		display: inline-block;
+		width: 100px;
+		float: left;
+	}
+}

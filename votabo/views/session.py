@@ -1,0 +1,49 @@
+from pyramid.response import Response
+from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPFound
+from pyramid.security import remember, forget
+
+from sqlalchemy import desc
+from sqlalchemy.exc import DBAPIError
+from sqlalchemy.orm import aliased
+
+from webhelpers.paginate import PageURL, Page
+
+from hashlib import md5
+
+from ..models import (
+    DBSession,
+    User,
+    Post,
+    Tag,
+    Comment,
+    map_post_tag,
+    )
+from ..lib import cache
+
+
+class VotoboException(Exception):
+    pass
+
+
+class SessionException(VotoboException):
+    pass
+
+
+@view_config(request_method="POST", route_name='session')
+def session_create(request):
+    username = request.POST.get("username", "")
+    password = request.POST.get("password", "")
+
+    duser = User.by_name(username)
+    if duser and md5(username.lower() + password).hexdigest() == duser.password:
+        request.response.headers.extend(remember(request, duser))
+        return HTTPFound(request.route_url('user', name=username), headers=request.response.headers)
+    else:
+        raise SessionException("No user with those details was found")
+
+
+@view_config(request_method="GET", route_name='session-delete')  # FIXME: get = bad
+def session_delete(request):
+    request.response.headers.extend(forget(request))
+    return HTTPFound(request.route_url('posts'), headers=request.response.headers)
