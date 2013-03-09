@@ -107,7 +107,7 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
-    config = Configurator(settings=settings, root_factory='votabo.security.RootFactory')
+    config = Configurator(settings=settings, root_factory='votabo.lib.security.RootFactory')
     config.add_static_view(name='static', path='votabo:static', cache_max_age=3600)
 
     configure_routes(config)
