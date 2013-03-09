@@ -7,7 +7,7 @@ class User(Base):
     username = Column("name", Unicode, unique=True, nullable=False)
     password = Column("pass", String, nullable=False)
     joindate = Column(DateTime, nullable=False, default=func.now())
-    email = Column(String, nullable=False)
+    email = Column(String, nullable=True)
     category = Column("class", String, nullable=False)
 
     #self_description = Column(Unicode, nullable=False, default=u'')

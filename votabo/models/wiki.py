@@ -9,8 +9,8 @@ class WikiPage(Base):
     user_ip = Column("owner_ip", String(255), nullable=False)
     title = Column(Unicode, nullable=False)
     body = Column(Unicode, nullable=False)
-    revision = Column(Integer, nullable=False)
-    posted = Column("date", DateTime, nullable=False)
-    locked = Column(Boolean, nullable=False)
+    revision = Column(Integer, nullable=False, default=0)
+    posted = Column("date", DateTime, nullable=False, default=func.now())
+    locked = Column(Boolean, nullable=False, default=False)
 
     user = relationship("User")
