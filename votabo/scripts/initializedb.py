@@ -9,12 +9,7 @@ from pyramid.paster import (
     setup_logging,
     )
 
-from ..models import (
-    DBSession,
-    Base,
-    Tag,
-    )
-
+from ..models import *
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
@@ -33,5 +28,21 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = MyModel(name='one', value=1)
-        DBSession.add(model)
+        anon = User(username="Anonymous", password="[blocked]", category="anonymous")
+        system = User(username="System", password="[blocked]", category="anonymous")
+        admin = User(username="Admin", password="", category="admin")
+        DBSession.add([anon, system, admin])
+        
+        pm = PrivateMessage(user_from=system, user_to=admin, subject="Welcome to Votabo", message="Hello!")
+        DBSesson.add(pm)
+        
+        ipban = IPBan(banner=system, ip="127.0.0.2", reason="test", end_timestamp=0)
+        DBSession.add(ipban)
+        
+        wp = WikiPage(user=anon, title=":default:", body="this is a default wiki page")
+        DBSession.add(wp)
+        
+        post = Post(user=system, fingerprint="", width=100, height=100)
+        post.tags.append(Tag("cat"))
+        post.tags.append(Tag("cute"))
+        post.comments.append(Comment(user=system, body="cute!"))    
