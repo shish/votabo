@@ -1,9 +1,5 @@
-from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
-
-from sqlalchemy import desc
-from sqlalchemy.exc import DBAPIError
 
 from webhelpers.paginate import PageURL, Page
 
@@ -52,9 +48,9 @@ def alias_list(request):
 
     sql = DBSession.query(Alias).order_by(Alias.newtag)
     if request.GET.get("oldtag"):
-        sql = sql.filter(Alias.oldtag.ilike("%"+request.GET["oldtag"]+"%"))
+        sql = sql.filter(Alias.oldtag.ilike("%" + request.GET["oldtag"] + "%"))
     if request.GET.get("newtag"):
-        sql = sql.filter(Alias.newtag.ilike("%"+request.GET["newtag"]+"%"))
+        sql = sql.filter(Alias.newtag.ilike("%" + request.GET["newtag"] + "%"))
     aliases = Page(sql, page=page, items_per_page=aliases_per_page, url=url_for_page)
     return {"aliases": aliases, "pager": aliases}
 
@@ -62,7 +58,7 @@ def alias_list(request):
 @view_config(request_method="DELETE", route_name='alias', permission="alias-delete")
 def alias_delete(request):
     aid = request.matchdict["id"]
-    alias = DBSession.query(Alias).filter(Alias.oldtag==aid).first()
+    alias = DBSession.query(Alias).filter(Alias.oldtag == aid).first()
     if alias:
         logger.info("Deleting alias from %s to %s", alias.oldtag, alias.newtag)
         DBSession.delete(alias)

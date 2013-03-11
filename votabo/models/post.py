@@ -28,7 +28,7 @@ class Post(Base):
 
     @property
     def thumb_url(self):
-        return "http://rule34-data-002.paheal.net/_thumbs/%s/thumb.jpg" % (self.fingerprint, )
+        return "http://rule34-data-002.paheal.net/_thumbs/%s/thumb.jpg" % (self.fingerprint,)
 
     @property
     def thumb_width(self):
@@ -43,9 +43,9 @@ class Post(Base):
 
     @property
     def image_url(self):
-        return "http://rule34-data-002.paheal.net/_images/%s/thumb.jpg" % (self.fingerprint, )
+        return "http://rule34-data-002.paheal.net/_images/%s/thumb.jpg" % (self.fingerprint,)
 
-    #title = Column(Unicode)
+    # title = Column(Unicode)
     @property
     def title(self):
         return " ".join([tag.name for tag in self.tags])
@@ -60,10 +60,10 @@ class Post(Base):
 
     @property
     def r34_url(self):
-        return "http://rule34.paheal.net/post/view/%d" % (self.id, )
+        return "http://rule34.paheal.net/post/view/%d" % (self.id,)
 
     def __str__(self):
-        return "<Post id=%d>" % (self.id, )
+        return "<Post id=%d>" % (self.id,)
 
 
 class PostBan(Base):
@@ -73,7 +73,7 @@ class PostBan(Base):
     reason = Column(Unicode, nullable=False, default=u'')
     added = Column("date", DateTime(timezone=True), nullable=False, default=func.now())
 
-    #banner = relationship("User", lazy="joined")
+    # banner = relationship("User", lazy="joined")
 
 
 class Tag(Base):
@@ -131,6 +131,7 @@ class Comment(Base):
     __tablename__ = "comments"
     id = Column(Integer, primary_key=True, nullable=False)
     user_id = Column("owner_id", Integer, ForeignKey("users.id"), nullable=False)
+    user_ip = Column("owner_ip", String(255), nullable=False)
     post_id = Column("image_id", Integer, ForeignKey("images.id"), nullable=False)
     body = Column("comment", Unicode, nullable=False)
     posted = Column(DateTime, nullable=False, default=func.now())
@@ -138,6 +139,7 @@ class Comment(Base):
     user = relationship("User")
     post = relationship("Post")
 
-    def __init__(self, user, body):
+    def __init__(self, user, user_ip, body):
         self.user = user
+        self.user_ip = user_ip
         self.body = body

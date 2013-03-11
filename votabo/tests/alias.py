@@ -67,6 +67,7 @@ class Test_Alias_Delete(VotaboTest):
         alias_create(testing.DummyRequest(POST={"oldtag": u"Bender", "newtag": u"Bender_Bending_Rodriguez"}))
 
         info = alias_delete(testing.DummyRequest(matchdict={"id": u"Bender"}))
+        self.assertIsInstance(info, HTTPFound)
 
         info = alias_list(testing.DummyRequest())
         aliases = [alias.oldtag for alias in info["aliases"]]
