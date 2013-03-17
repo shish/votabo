@@ -3,6 +3,7 @@ import transaction
 
 from pyramid import testing
 from hashlib import md5
+import json
 
 from votabo import *
 
@@ -54,6 +55,13 @@ class VotaboTest(unittest2.TestCase):
             u2.email = "test-user@example.com"
             u2.password = md5(u2.username + "password").hexdigest()
             DBSession.add(u2)
+
+            u3 = User()
+            u3.username = u"test-user2"
+            u3.category = "user"
+            u3.email = "test-user2@example.com"
+            u3.password = md5(u3.username + "password").hexdigest()
+            DBSession.add(u3)
 
     def tearDown(self):
         DBSession.remove()

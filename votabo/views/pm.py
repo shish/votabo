@@ -29,7 +29,9 @@ def pm_read(request):
     pid = request.matchdict["id"]
     pm = DBSession.query(PrivateMessage).filter(PrivateMessage.id == pid).first()
     if pm.user_to == request.user:
-        # FIXME: pm.is_read = True
+        pm.is_read = True
+        return {"pm": pm}
+    elif request.user.category == "admin":  # FIXME has_permission
         return {"pm": pm}
     else:
         raise Forbidden("That's not your PM")

@@ -32,11 +32,11 @@ def user_list(request):
     if request.GET.get("id"):
         sql = sql.filter(User.id == request.GET["id"])
     if request.GET.get("username"):
-        sql = sql.filter(User.username.ilike("%"+request.GET["username"]+"%"))
+        sql = sql.filter(User.username.ilike("%" + request.GET["username"] + "%"))
     if request.GET.get("posts"):
-        sql = sql.filter(User.post_count > 0)
+        sql = sql.filter(User.post_count >= int(request.GET.get("posts")))
     if request.GET.get("comments"):
-        sql = sql.filter(User.comment_count > 0)
+        sql = sql.filter(User.comment_count >= int(request.GET.get("comments")))
     if request.GET.get("category"):
         sql = sql.filter(User.category == request.GET["category"])
     users = Page(sql, page=page, items_per_page=users_per_page, url=url_for_page)

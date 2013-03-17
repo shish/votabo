@@ -10,3 +10,17 @@ class test_postban_list(VotaboTest):
         del info["postbans"]
         del info["pager"]
         self.assertDictEqual(info, {})
+
+    def test_fingerprint(self):
+        request = testing.DummyRequest(GET={"fingerprint": "0"*32})
+        info = postban_list(request)
+        del info["postbans"]
+        del info["pager"]
+        self.assertDictEqual(info, {})
+
+    def test_reason(self):
+        request = testing.DummyRequest(GET={"reason": "test ban"})
+        info = postban_list(request)
+        del info["postbans"]
+        del info["pager"]
+        self.assertDictEqual(info, {})

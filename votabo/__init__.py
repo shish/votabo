@@ -9,7 +9,7 @@ import logging
 import locale
 
 from pyramid.authorization import ACLAuthorizationPolicy
-#from pyramid.authentication import AuthTktAuthenticationPolicy
+# from pyramid.authentication import AuthTktAuthenticationPolicy
 from votabo.lib.security import RootFactory
 from votabo.lib.security import ShimmieAuthenticationPolicy
 from votabo.lib import cache
@@ -62,6 +62,18 @@ def configure_routes(config):
 
 
 def configure_templates(config):
+    # json settings
+    from pyramid.renderers import JSON
+    from sqlalchemy.orm.query import Query
+
+    json_renderer = JSON()
+    def query_adapter(obj, request):
+        return list(obj)
+    json_renderer.add_adapter(Query, query_adapter)
+
+    config.add_renderer('json', json_renderer)
+
+    # mako settings
     def add_renderer_globals(event):
         def _has_permission(name):
             return has_permission(name, RootFactory, event["request"])
@@ -84,10 +96,10 @@ def configure_cache(config, settings):
 
 
 def configure_auth(config):
-    #def principals(user_id, request):
+    # def principals(user_id, request):
     #    u = User.by_name(user_id)
     #    return ["u:"+u.username, "g:"+u.category]
-    #config.set_authentication_policy(AuthTktAuthenticationPolicy('q34i5uandfga08', callback=principals, hashalg='sha512'))
+    # config.set_authentication_policy(AuthTktAuthenticationPolicy('q34i5uandfga08', callback=principals, hashalg='sha512'))
 
     config.set_authentication_policy(ShimmieAuthenticationPolicy())
     config.set_authorization_policy(ACLAuthorizationPolicy())

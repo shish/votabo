@@ -80,7 +80,7 @@ class Tag(Base):
     __tablename__ = 'tags'
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column("tag", Unicode, unique=True, nullable=False)
-    count = Column(Integer, nullable=False, default=0)
+    count = Column(Integer, nullable=False, default=1)
 
     posts = relationship("Post", secondary=map_post_tag, order_by=desc("images.id"))
 
@@ -93,6 +93,18 @@ class Tag(Base):
 
     def __str__(self):
         return "<Tag id=%d name=%s count=%d>" % (self.id, self.name, self.count)
+
+    def __repr__(self):
+        return "Tag(%r)" % self.name
+
+    def __json__(self):
+        return {"name": self.name, "count": self.count}
+
+    def __eq__(self, other):
+        return (
+            (isinstance(other, Tag) and self.name == other.name) or
+            (isinstance(other, dict) and self.__json__() == other)
+        )
 
     @staticmethod
     def get(name):
