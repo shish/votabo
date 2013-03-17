@@ -4,7 +4,7 @@ from votabo.views.home import home
 
 
 class TestHome(VotaboTest):
-    def test_Home(self):
+    def test_home(self):
         request = testing.DummyRequest()
         info = home(request)
-        self.assertDictEqual(info, {'post_count': 1, 'site_title': None})
+        self.assertDictEqual(info, {'post_count': 2, 'site_title': None})

@@ -19,7 +19,7 @@ class test_postban_list(VotaboTest):
         self.assertDictEqual(info, {})
 
     def test_reason(self):
-        request = testing.DummyRequest(GET={"reason": "test ban"})
+        request = testing.DummyRequest(GET={"reason": u"test ban"})
         info = postban_list(request)
         del info["postbans"]
         del info["pager"]

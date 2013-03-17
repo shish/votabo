@@ -8,12 +8,12 @@ from votabo.views.tag import tag_list
 class test_tag_list(VotaboTest):
     def setUp(self):
         VotaboTest.setUp(self)
-        DBSession.add(Tag(u"apple"))
-        DBSession.add(Tag(u"bacon"))
-        DBSession.add(Tag(u"cat"))
-        DBSession.add(Tag(u"kitten"))
-        DBSession.add(Tag(u"pie"))
-        DBSession.add(Tag(u"!!!"))
+        DBSession.add(Tag.get_or_create(u"apple"))
+        DBSession.add(Tag.get_or_create(u"bacon"))
+        DBSession.add(Tag.get_or_create(u"cat"))
+        DBSession.add(Tag.get_or_create(u"kitten"))
+        DBSession.add(Tag.get_or_create(u"pie"))
+        DBSession.add(Tag.get_or_create(u"!!!"))
 
     def test_basic(self):
         request = testing.DummyRequest()

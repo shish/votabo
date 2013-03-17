@@ -1,9 +1,7 @@
-from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.exceptions import Forbidden
 
 from sqlalchemy import desc
-from sqlalchemy.exc import DBAPIError
 
 from webhelpers.paginate import PageURL, Page
 

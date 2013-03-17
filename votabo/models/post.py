@@ -112,6 +112,10 @@ class Tag(Base):
         return DBSession.query(Tag).filter(Tag.name.ilike(name)).first()
 
     @staticmethod
+    def get_or_create(name):
+        return Tag.get(name) or Tag(name)
+
+    @staticmethod
     def split(string):
         return string.split()
 
