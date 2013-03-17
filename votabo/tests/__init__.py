@@ -2,6 +2,7 @@ import unittest2
 import transaction
 
 from pyramid import testing
+from hashlib import md5
 
 from votabo import *
 
@@ -23,7 +24,7 @@ class VotaboTest(unittest2.TestCase):
         configure_templates(self.config)
         configure_locale(self.config)
         configure_user(self.config)
-        #configure_auth(self.config)
+        # configure_auth(self.config)
 
         cache.fast.configure("dogpile.cache.memory")
         cache.slow.configure("dogpile.cache.memory")
@@ -33,19 +34,26 @@ class VotaboTest(unittest2.TestCase):
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
         with transaction.manager:
-            u = User()
-            u.username = u"test-admin"
-            u.category = "admin"
-            u.email = "test@example.com"
-            u.password = "0"*32
+            u1 = User()
+            u1.username = u"test-admin"
+            u1.category = "admin"
+            u1.email = "test-admin@example.com"
+            u1.password = md5(u1.username + "password").hexdigest()
 
-            p = Post()
-            p.fingerprint = "0"*32
-            p.tags.append(Tag(u"test-tag"))
+            p1 = Post()
+            p1.fingerprint = "0"*32
+            p1.tags.append(Tag(u"test-tag"))
 
-            u.posts.append(p)
+            u1.posts.append(p1)
 
-            DBSession.add(u)
+            DBSession.add(u1)
+
+            u2 = User()
+            u2.username = u"test-user"
+            u2.category = "user"
+            u2.email = "test-user@example.com"
+            u2.password = md5(u2.username + "password").hexdigest()
+            DBSession.add(u2)
 
     def tearDown(self):
         DBSession.remove()

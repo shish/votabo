@@ -10,8 +10,8 @@ class User(Base):
     email = Column(String, nullable=True)
     category = Column("class", String, nullable=False)
 
-    #self_description = Column(Unicode, nullable=False, default=u'')
-    #admin_description = Column(Unicode, nullable=False, default=u'')
+    # self_description = Column(Unicode, nullable=False, default=u'')
+    # admin_description = Column(Unicode, nullable=False, default=u'')
 
     post_count = Column("image_count", Integer, nullable=False, default=0)
     comment_count = Column("comment_count", Integer, nullable=False, default=0)
@@ -68,8 +68,8 @@ class IPBan(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     banner_id = Column("banner_id", Integer, ForeignKey("users.id"), nullable=False)
     reason = Column(Unicode, nullable=False, default=u'')
-    end_timestamp = Column(Integer, nullable=False, default=0)  # FIXME: datetime(tz=true)
-    #ip = Column(postgresql.INET, nullable=False)
+    until = Column("end_timestamp", Integer, nullable=False, default=0)  # FIXME: datetime(tz=true)
+    # ip = Column(postgresql.INET, nullable=False)
     ip = Column(String(255), nullable=False)
     added = Column(DateTime(timezone=True), nullable=False, default=func.now())
 

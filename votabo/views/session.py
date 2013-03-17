@@ -1,25 +1,13 @@
-from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.security import remember, forget
-
-from sqlalchemy import desc
-from sqlalchemy.exc import DBAPIError
-from sqlalchemy.orm import aliased
-
-from webhelpers.paginate import PageURL, Page
 
 from hashlib import md5
 
 from ..models import (
     DBSession,
     User,
-    Post,
-    Tag,
-    Comment,
-    map_post_tag,
     )
-from ..lib import cache
 
 
 class VotoboException(Exception):
