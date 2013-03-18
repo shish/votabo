@@ -33,11 +33,11 @@ class PostSearch(object):
     def __init__(self, query):
         self.query = Tag.split(query)
 
-    def _get_ids__tag(self, tag):
-        ids = []
-        for row in DBSession.query(map_post_tag).join(Tag).filter(Tag.name == tag).all():
-            ids.append(row.image_id)
-        return ids
+#    def _get_ids__tag(self, tag):
+#        ids = []
+#        for row in DBSession.query(map_post_tag).join(Tag).filter(Tag.name == tag).all():
+#            ids.append(row.image_id)
+#        return ids
 
     def filter(self, sql):
         plain = []
@@ -79,7 +79,7 @@ def post_create_xhr(request):
         p.filename = request.POST.get("filename")
         p.mimetype = request.POST.get("mimetype")
         p.data = request.POST.get("data")
-        #DBSession.add(p)
+        # DBSession.add(p)
         return {"status": "ok"}
     except Exception as e:
         return {"status": "error", "message": str(e)}
@@ -95,7 +95,7 @@ def post_create(request):
             p.filename = fobj.filename
             p.mimetype = fobj.type
             p.data = fobj.file.read()
-            #DBSession.add(p)
+            # DBSession.add(p)
 
     for fdat in request.POST.getall("data"):
         if fdat != "":
