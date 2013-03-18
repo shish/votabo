@@ -36,44 +36,44 @@ class VotaboTest(unittest2.TestCase):
         Base.metadata.create_all(engine)
         with transaction.manager:
             # admin
-            u1 = User()
-            u1.username = u"test-admin"
-            u1.category = "admin"
-            u1.email = "test-admin@example.com"
-            u1.password = md5(u1.username + "password").hexdigest()
+            self.user0 = User()
+            self.user0.username = u"test-admin"
+            self.user0.category = "admin"
+            self.user0.email = "test-admin@example.com"
+            self.user0.password = md5(self.user0.username + "password").hexdigest()
 
             p1 = Post()
             p1.fingerprint = "0"*32
             p1.tags.append(Tag.get_or_create(u"test-tag"))
             p1.tags.append(Tag.get_or_create(u"cat"))
 
-            u1.posts.append(p1)
+            self.user0.posts.append(p1)
 
-            DBSession.add(u1)
+            DBSession.add(self.user0)
 
             # user
-            u2 = User()
-            u2.username = u"test-user"
-            u2.category = "user"
-            u2.email = "test-user@example.com"
-            u2.password = md5(u2.username + "password").hexdigest()
+            self.user1 = User()
+            self.user1.username = u"test-user1"
+            self.user1.category = "user"
+            self.user1.email = "test-user1@example.com"
+            self.user1.password = md5(self.user1.username + "password").hexdigest()
 
             p2 = Post()
             p2.fingerprint = "1"*32
             p2.tags.append(Tag.get_or_create(u"test-tag"))
             p2.tags.append(Tag.get_or_create(u"bacon"))
 
-            u2.posts.append(p2)
+            self.user1.posts.append(p2)
 
-            DBSession.add(u2)
+            DBSession.add(self.user1)
 
             # a different user
-            u3 = User()
-            u3.username = u"test-user2"
-            u3.category = "user"
-            u3.email = "test-user2@example.com"
-            u3.password = md5(u3.username + "password").hexdigest()
-            DBSession.add(u3)
+            self.user2 = User()
+            self.user2.username = u"test-user2"
+            self.user2.category = "user"
+            self.user2.email = "test-user2@example.com"
+            self.user2.password = md5(self.user2.username + "password").hexdigest()
+            DBSession.add(self.user2)
 
     def tearDown(self):
         DBSession.remove()
