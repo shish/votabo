@@ -15,6 +15,9 @@ from ..models import (
     Comment,
     )
 from ..lib import cache
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @cache.fast.cache_on_arguments(expiration_time=600)
@@ -38,5 +41,15 @@ def comment_create(request):
     comment = request.POST["comment"]
 
     post = DBSession.query(Post).get(post_id)
-    post.comments.append(Comment(user, comment))
+    post.comments.append(Comment(request.user, request.remote_addr, comment))
     return HTTPFound(request.route_url("post", id=post_id))
+
+
+@view_config(request_method="DELETE", route_name='comment', permission='comment-delete')
+def comment_delete(request):
+    cid = request.matchdict["id"]
+    comment = DBSession.query(Comment).filter(Comment.id == cid).first()
+    if comment:
+        logger.info("Deleting comment %d", comment.id)
+        DBSession.delete(comment)
+    return HTTPFound(request.route_url('comments'))  # FIXME: referrer
