@@ -21,6 +21,8 @@ class User(Base):
     pm_inbox = relationship("PrivateMessage", foreign_keys="PrivateMessage.user_to_id")
     pm_outbox = relationship("PrivateMessage", foreign_keys="PrivateMessage.user_from_id")
 
+    ip = "0.0.0.0"  # dynamically set on each request
+
     def get_avatar_url(self, size=80):
         default = ""
         if self.email:
