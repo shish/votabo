@@ -12,8 +12,8 @@ from votabo.models import (
     DBSession,
     Base,
     User,
-    Post,
-    Tag
+    Post, Tag,
+    WikiPage,
     )
 
 
@@ -74,6 +74,18 @@ class VotaboTest(unittest2.TestCase):
             self.user2.email = "test-user2@example.com"
             self.user2.password = md5(self.user2.username + "password").hexdigest()
             DBSession.add(self.user2)
+
+            wp1 = WikiPage()
+            wp1.user = self.user0
+            wp1.title = "index"
+            wp1.body = "This is the default wiki index page"
+            DBSession.add(wp1)
+
+            wp2 = WikiPage()
+            wp2.user = self.user0
+            wp2.title = "wiki:template"
+            wp2.body = "This is the default wiki template page"
+            DBSession.add(wp2)
 
     def tearDown(self):
         DBSession.remove()

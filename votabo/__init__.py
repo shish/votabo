@@ -47,6 +47,7 @@ def configure_routes(config):
     config.add_route('docs', '/doc')
 
     config.add_route('wikis', '/wiki')
+    config.add_route('wiki-edit', '/wiki/{title}/edit')
     config.add_route('wiki', '/wiki/{title}')
 
     config.add_route('ipbans', '/ip-bans')
