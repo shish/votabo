@@ -77,14 +77,14 @@ class VotaboTest(unittest2.TestCase):
 
             wp1 = WikiPage()
             wp1.user = self.user0
-            wp1.title = "index"
-            wp1.body = "This is the default wiki index page"
+            wp1.title = u"index"
+            wp1.body = u"This is the default wiki index page"
             DBSession.add(wp1)
 
             wp2 = WikiPage()
             wp2.user = self.user0
-            wp2.title = "wiki:template"
-            wp2.body = "This is the default wiki template page"
+            wp2.title = u"wiki:template"
+            wp2.body = u"This is the default wiki template page"
             DBSession.add(wp2)
 
     def tearDown(self):

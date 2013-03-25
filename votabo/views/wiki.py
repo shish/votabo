@@ -15,6 +15,10 @@ from ..models import (
     WikiPage,
     )
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class WikiPageSchema(Schema):
     allow_extra_fields = True
@@ -24,11 +28,21 @@ class WikiPageSchema(Schema):
     body = validators.String()
 
 
+def _get_page(title, rev=None):
+#    raise "moo"
+    print type(title), type(rev)
+    q = DBSession.query(WikiPage).order_by(desc(WikiPage.revision))
+    q = q.filter(WikiPage.title == title)
+    if rev:
+        q = q.filter(WikiPage.revision == int(rev))
+    return q.first()
+
+
 @view_config(request_method="GET", route_name='wiki', renderer='wiki/read.mako', permission="wiki-read")
 def wiki_read(request):
     title = request.matchdict["title"]
-    index = DBSession.query(WikiPage).filter(WikiPage.title == u"wiki:sidebar").order_by(desc(WikiPage.revision)).first()
-    page = DBSession.query(WikiPage).filter(WikiPage.title == title).order_by(desc(WikiPage.revision)).first()
+    index = _get_page(u"wiki:sidebar")
+    page = _get_page(title, request.GET.get("revision"))
     if not page:
         return HTTPFound(request.route_url("wiki-edit", title=title))
     return {"index": index, "page": page}
@@ -38,7 +52,8 @@ def wiki_read(request):
 @view_config(request_method="PUT", route_name='wiki', permission="wiki-update")
 def wiki_update(request):
     title = request.matchdict["title"]
-    page = DBSession.query(WikiPage).filter(WikiPage.title == title).order_by(desc(WikiPage.revision)).first()
+    request.POST["title"] = title
+    page = _get_page(title)
     if not page:
         page = WikiPage()
         page.title = title
@@ -46,19 +61,20 @@ def wiki_update(request):
 
     if form.validate():
         form.bind(page, include=["body", "title"])
-        page.revision = (page.revision or 0) + 1  # sqlalchemy doesn't work here?
+        page.revision = (page.revision or 0) + 1  # sqlalchemy "default" doesn't work here?
         page.user = request.user
         page.user_ip = request.user.ip
         DBSession.add(page)
         return HTTPFound(request.route_url("wiki", title=page.title))
     else:
+        logger.warning(form.errors)
         return {"form": FormRenderer(form)}
 
 
 @view_config(request_method="DELETE", route_name='wiki', permission="wiki-delete")
 def wiki_delete(request):
     title = request.matchdict["title"]
-    page = DBSession.query(WikiPage).filter(WikiPage.title == title).order_by(desc(WikiPage.revision)).first()
+    page = _get_page(title)
     if page:
         DBSession.delete(page)
         request.session.flash("Deleted page '%s' version %d" % (page.title, page.revision))
