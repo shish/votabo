@@ -11,16 +11,12 @@ from votabo.views.wiki import wiki_read, wiki_update, wiki_delete
 class test_read(VotaboTest):
     def setUp(self):
         VotaboTest.setUp(self)
-        print list(DBSession.query(WikiPage))
         wp1 = WikiPage()
         wp1.user = self.user0
         wp1.title = u"index"
         wp1.revision = 2
         wp1.body = u"This is the default wiki index page, v2"
         DBSession.add(wp1)
-        print list(DBSession.query(WikiPage))
-        DBSession.flush()
-        print list(DBSession.query(WikiPage))
 
     def test_basic(self):
         request = testing.DummyRequest(matchdict={"title": u"index"})
