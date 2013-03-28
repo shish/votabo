@@ -97,7 +97,7 @@ class Tag(Base):
     def __repr__(self):
         return "Tag(%r)" % self.name
 
-    def __json__(self):
+    def __json__(self, request):
         return {"name": self.name, "count": self.count}
 
     def __eq__(self, other):

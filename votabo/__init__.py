@@ -110,7 +110,11 @@ def configure_user(config):
     def user(request):
         un = authenticated_userid(request)
         u = User.by_name(un)
-        u.ip = request.headers["REMOTE_ADDR"]
+        if not u:
+            u = User.by_name("Anonymous")
+        if not u:
+            raise Exception("Anonymous is missing")
+        u.ip = "127.0.0.9"  # request.headers["REMOTE_ADDR"]
         return u
     config.add_request_method(user, property=True, reify=True)
 

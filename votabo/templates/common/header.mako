@@ -16,8 +16,8 @@
 		<a href="${route_path('wiki', title='faqru')}"><img alt="flag" src="${static_url('img/flags/russian-flag.png')}"></a>
 		<a href="${route_path('wiki', title='faqchi')}"><img alt="flag" src="${static_url('img/flags/china-flag.png')}"></a>
 	</div>
-	<form action="${route_path('posts')}" method="GET">
-		<table><tr><td width="80%">
+	<form class="header-search" action="${route_path('posts')}" method="GET">
+		<table class="search"><tr><td width="80%">
 			<input type="text" class="shm-ac-tags" name="q" placeholder="Enter Keywords" size="36" value="${request.GET.get('q', '')}">
 		</td><td>
 			<input type="submit" value="Search">

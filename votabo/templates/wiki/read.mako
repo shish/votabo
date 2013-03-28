@@ -13,7 +13,7 @@
 </%block>
 
 <section>
-	<h3>${page.title} (r${page.revision} - ${render_date(page.posted)} - ${page.user.username})</h3>
+	<h3>${page.title} (r${page.revision} - ${render_date(page.posted)} - ${page.user.username} - <a href="${route_url('wiki-edit', title=page.title)}">Edit</a>)</h3>
 	<div class="wiki-page">
 		${render_bbcode(page.body)}
 	</div>

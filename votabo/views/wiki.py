@@ -29,8 +29,6 @@ class WikiPageSchema(Schema):
 
 
 def _get_page(title, rev=None):
-#    raise "moo"
-    print type(title), type(rev)
     q = DBSession.query(WikiPage).order_by(desc(WikiPage.revision))
     q = q.filter(WikiPage.title == title)
     if rev:
@@ -49,15 +47,15 @@ def wiki_read(request):
 
 
 @view_config(request_method="GET", route_name='wiki-edit', renderer='wiki/edit.mako', permission="wiki-update")
-@view_config(request_method="PUT", route_name='wiki', permission="wiki-update")
+@view_config(request_method="PUT", route_name='wiki', renderer='wiki/edit.mako', permission="wiki-update")
 def wiki_update(request):
     title = request.matchdict["title"]
-    request.POST["title"] = title
+    # request.POST["title"] = title
     page = _get_page(title)
     if not page:
         page = WikiPage()
         page.title = title
-    form = Form(request, schema=WikiPageSchema, obj=page)
+    form = Form(request, method="PUT", schema=WikiPageSchema, obj=page)
 
     if form.validate():
         form.bind(page, include=["body", "title"])
@@ -67,8 +65,9 @@ def wiki_update(request):
         DBSession.add(page)
         return HTTPFound(request.route_url("wiki", title=page.title))
     else:
-        logger.warning(form.errors)
-        return {"form": FormRenderer(form)}
+        logger.warning("Form failed validation: %r %r" % (request.POST, form.errors))
+        index = _get_page(u"wiki:sidebar")
+        return {"form": FormRenderer(form), "page": page, "index": index}
 
 
 @view_config(request_method="DELETE", route_name='wiki', permission="wiki-delete")

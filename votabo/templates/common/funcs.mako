@@ -70,7 +70,7 @@ p.add_simple_formatter("img", '<img src="%(value)s" />')
 <%def name="render_thumbfiller()">
 	## fill some space to trigger full-justify on the final line
 	% for n in range(0, 5):
-		<div style="width: 192px; height: 0px; display: inline-block;"></div>
+		<div style="width: 226px; height: 0px; display: inline-block;"></div>
 	% endfor
 </%def>
 

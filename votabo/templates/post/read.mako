@@ -37,7 +37,9 @@
 <section>
 	<h3>${post.title}</h3>
 	<div class="blockbody">
-		<img src="${post.image_url}" class="shm-main-image" data-width="${post.width}" data-height="${post.height}">
+		<center>
+			<img src="${post.image_url}" class="shm-main-image" data-width="${post.width}" data-height="${post.height}">
+		</center>
 	</div>
 	<div class="blockbody">
 		<table class="post-info form">
@@ -59,7 +61,7 @@
 				<th>Source</th>
 				<td>
 					<span class="view ellipsis">${render_autolink(post.source)}</span>
-					<input class="edit" type="text" name="source" value="${post.source}">
+					<input class="edit" type="text" name="source" value="${post.source or ''}">
 				</td>
 			</tr>
 			<tr>
