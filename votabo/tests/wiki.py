@@ -41,13 +41,13 @@ class test_read(VotaboTest):
 
 class test_update(VotaboTest):
     def test_basic(self):
-        request = testing.DummyRequest(method="POST", user=self.user0, matchdict={"title": u"index"}, POST={"body": u"a new index"})
+        request = testing.DummyRequest(method="PUT", user=self.user0, matchdict={"title": u"index"}, params={"title": u"index", "body": u"a new index"})
         info = wiki_update(request)
         self.assertIsInstance(info, HTTPFound)
         # self.assertEqual(request.session.flash.call_count, 1)
 
     def test_new(self):
-        request = testing.DummyRequest(method="POST", user=self.user0, matchdict={"title": u"some-new-page"}, POST={"body": u"a new page body"})
+        request = testing.DummyRequest(method="PUT", user=self.user0, matchdict={"title": u"some-new-page"}, params={"title": u"some-new-page", "body": u"a new page body"})
         info = wiki_update(request)
         self.assertIsInstance(info, HTTPFound)
 

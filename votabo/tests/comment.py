@@ -43,13 +43,31 @@ class TestList(VotaboTest):
 
 
 class TestCreate(VotaboTest):
-    def test(self):
+    def setUp(self):
+        VotaboTest.setUp(self)
         DBSession.add(self.user0)
-        post = self.user0.posts[0]
-        request = testing.DummyRequest(user=self.user1, remote_addr="0.0.0.0", POST={"post": post.id, "comment": u"a new comment is here"})
+        self.post = self.user0.posts[0]
+
+    def test_valid(self):
+        request = testing.DummyRequest(user=self.user1, remote_addr="0.0.0.0", method="POST", POST={"post_id": self.post.id, "comment": u"a new comment is here"})
         comment_create(request)
-        cs = [comment.body for comment in post.comments]
+        cs = [comment.body for comment in self.post.comments]
         self.assertIn(u"a new comment is here", cs)
+
+    def test_short(self):
+        request = testing.DummyRequest(user=self.user1, remote_addr="0.0.0.0", method="POST", POST={"post_id": self.post.id, "comment": u""})
+        info = comment_create(request)
+        self.assertIn("comment", info["form"].form.errors)
+
+    def test_long(self):
+        request = testing.DummyRequest(user=self.user1, remote_addr="0.0.0.0", method="POST", POST={"post_id": self.post.id, "comment": u"x"*9001})
+        info = comment_create(request)
+        self.assertIn("comment", info["form"].form.errors)
+
+    def test_white(self):
+        request = testing.DummyRequest(user=self.user1, remote_addr="0.0.0.0", method="POST", POST={"post_id": self.post.id, "comment": u"        "})
+        info = comment_create(request)
+        self.assertIn("comment", info["form"].form.errors)
 
 
 class TestDelete(VotaboTest):

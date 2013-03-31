@@ -26,6 +26,7 @@ class AliasLoopException(Exception):
 
 @view_config(request_method="POST", route_name='aliases', permission="alias-create")
 def alias_create(request):
+    # TODO: upload CSV
     existing = DBSession.query(Alias).filter(Alias.oldtag.ilike(request.POST["oldtag"])).first()
     if existing:
         raise AliasExistsException("%s is already an alias (for %s)" % (existing.oldtag, existing.newtag))
@@ -42,6 +43,7 @@ def alias_create(request):
 
 @view_config(request_method="GET", route_name='aliases', renderer='alias/list.mako', permission="alias-list")
 def alias_list(request):
+    # TODO: output CSV
     aliases_per_page = int(request.registry.settings.get("votabo.aliases_per_page", 50))
     page = int(request.GET.get("page", "1"))
     url_for_page = PageURL(request.url, {'page': page})
