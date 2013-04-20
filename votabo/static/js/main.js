@@ -1,5 +1,6 @@
 function magic(root) {
 	root.find("time").timeago();
+	
 	root.find(".shm-ac-tags").tagit({
 		fieldName: "tags",
 		singleFieldDelimiter: " ",
@@ -25,4 +26,11 @@ function magic(root) {
 
 $(function() {
 	magic($("BODY"));
+	
+	$(".jsHook-unlockOnChange").each(function(i, el) {
+		$($(el).data("unlock")).prop('disabled', true);
+	});
+	$(".jsHook-unlockOnChange").keyup(function(evt) {
+		$($(this).data("unlock")).prop('disabled', $(this).val().length == 0);
+	});
 });

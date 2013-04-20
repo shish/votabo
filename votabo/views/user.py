@@ -1,5 +1,6 @@
 from pyramid.response import Response
 from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPFound
 
 from sqlalchemy import desc
 from sqlalchemy.exc import DBAPIError
@@ -20,6 +21,16 @@ def user_read(request):
     name = request.matchdict["name"]
     duser = DBSession.query(User).filter(User.username == name).first()
     return {"duser": duser}
+
+
+@view_config(request_method="PUT", route_name='user')
+def user_update(request):
+    name = request.matchdict["name"]
+    duser = DBSession.query(User).filter(User.username == name).first()
+    # password
+    # pass1 / pass2
+    # email
+    return HTTPFound(request.referrer or request.route_url('user', name=duser.username))
 
 
 @view_config(request_method="GET", route_name='users', renderer='user/list.mako', permission="user-list")
