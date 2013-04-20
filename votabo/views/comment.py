@@ -37,7 +37,6 @@ class CommentSchema(Schema):
     # TODO: limit X posts per Y minutes
     # TODO: captcha
     # TODO: akismet
-    # TODO: UTF8 should work
     # TODO: blacklist phrases
     comment = All(validators.UnicodeString(strip=True, min=1, max=9000))
 

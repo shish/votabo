@@ -1,3 +1,5 @@
+# encoding:utf8
+
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
@@ -54,6 +56,12 @@ class TestCreate(VotaboTest):
         cs = [comment.body for comment in self.post.comments]
         self.assertIn(u"a new comment is here", cs)
 
+    def test_valid_utf8(self):
+        request = testing.DummyRequest(user=self.user1, remote_addr="0.0.0.0", method="POST", POST={"post_id": self.post.id, "comment": u"こんにちは世界"})
+        comment_create(request)
+        cs = [comment.body for comment in self.post.comments]
+        self.assertIn(u"こんにちは世界", cs)
+
     def test_short(self):
         request = testing.DummyRequest(user=self.user1, remote_addr="0.0.0.0", method="POST", POST={"post_id": self.post.id, "comment": u""})
         info = comment_create(request)
@@ -77,5 +85,5 @@ class TestDelete(VotaboTest):
         self.user0.posts[0].comments.append(comment)
         DBSession.flush()
 
-        info = comment_delete(testing.DummyRequest(matchdict={"id": comment.id}))
+        info = comment_delete(self.mockRequest(matchdict={"id": comment.id}))
         self.assertIsInstance(info, HTTPFound)
