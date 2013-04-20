@@ -81,4 +81,4 @@ def comment_delete(request):
     if comment:
         logger.info("Deleting comment %d", comment.id)
         DBSession.delete(comment)
-    return HTTPFound(request.route_url('comments'))  # FIXME: referrer
+    return HTTPFound(request.referrer or request.route_url('comments'))

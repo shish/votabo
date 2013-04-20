@@ -38,12 +38,11 @@ def alias_create(request):
     alias = Alias(request.POST["oldtag"].strip(), request.POST["newtag"].strip())
     logger.info("Create alias from %s to %s", alias.oldtag, alias.newtag)
     DBSession.add(alias)
-    return HTTPFound(request.route_url('aliases'))
+    return HTTPFound(request.referrer or request.route_url('aliases'))
 
 
 @view_config(request_method="GET", route_name='aliases', renderer='alias/list.mako', permission="alias-list")
 def alias_list(request):
-    # TODO: output CSV
     aliases_per_page = int(request.registry.settings.get("votabo.aliases_per_page", 50))
     page = int(request.GET.get("page", "1"))
     url_for_page = PageURL(request.url, {'page': page})
@@ -54,7 +53,15 @@ def alias_list(request):
     if request.GET.get("newtag"):
         sql = sql.filter(Alias.newtag.ilike("%" + request.GET["newtag"] + "%"))
     aliases = Page(sql, page=page, items_per_page=aliases_per_page, url=url_for_page)
+    
     return {"aliases": aliases, "pager": aliases}
+
+
+@view_config(request_method="GET", route_name='aliases-csv', renderer='csv', permission="alias-list")
+def alias_list_csv(request):
+    request.response.content_type = "text/plain"
+    sql = DBSession.query(Alias).order_by(Alias.newtag)
+    return {"data": [(alias.oldtag, alias.newtag) for alias in sql]}
 
 
 @view_config(request_method="DELETE", route_name='alias', permission="alias-delete")
@@ -64,4 +71,4 @@ def alias_delete(request):
     if alias:
         logger.info("Deleting alias from %s to %s", alias.oldtag, alias.newtag)
         DBSession.delete(alias)
-    return HTTPFound(request.route_url('aliases'))  # FIXME: referrer
+    return HTTPFound(request.referrer or request.route_url('aliases'))

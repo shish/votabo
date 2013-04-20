@@ -93,3 +93,12 @@ class VotaboTest(unittest2.TestCase):
 
         cache.slow = cache.make_region()
         cache.fast = cache.make_region()
+        
+    def mockRequest(self, *args, **kwargs):
+        return testing.DummyRequest(
+            *args,
+            session=testing.DummySession(),
+            referrer=None,
+            referer=None,
+            **kwargs
+        )

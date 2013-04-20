@@ -4,6 +4,11 @@
 <%block name="title">${"Alias List"}</%block>
 <%block name="header">${"Alias List"}</%block>
 
+<%block name="navblock_extra">
+	<br/>&nbsp;
+	<br/><a href="${route_path('aliases-csv')}">Download CSV</a>
+</%block>
+
 <section>
 	<h3>Alias List</h3>
 	<table class="zebra">

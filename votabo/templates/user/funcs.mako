@@ -1,5 +1,5 @@
 <%def name="user_block_small()">
-	% if request.user:
+	% if request.user.category != "anonymous":
 		<section>
 			<h3>Logged in as ${request.user.username}</h3>
 			<div>

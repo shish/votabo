@@ -66,4 +66,4 @@ def ipban_delete(request):
     if ipban:
         logger.info("Deleting ban for %s", ipban.ip)
         DBSession.delete(ipban)
-    return HTTPFound(request.route_url('ipbans'))  # FIXME: referrer
+    return HTTPFound(request.referrer or request.route_url('ipbans'))

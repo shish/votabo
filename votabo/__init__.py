@@ -30,6 +30,7 @@ def configure_routes(config):
     config.add_route('post', '/post/{id}')
     config.add_route('posts/upload', '/upload')
 
+    config.add_route('aliases-csv', '/alias.csv')
     config.add_route('aliases', '/alias')
     config.add_route('alias', '/alias/{id}')
 
@@ -73,6 +74,9 @@ def configure_templates(config):
     json_renderer.add_adapter(Query, query_adapter)
 
     config.add_renderer('json', json_renderer)
+
+    # CSV settings
+    config.include('pyramid_tablib')
 
     # mako settings
     def add_renderer_globals(event):
