@@ -17,14 +17,14 @@ from votabo.models import PrivateMessage
 			</tr>
 			<%
 			if onlyUnread:
-				pmList = [pm for pm in duser.pm_inbox if pm.is_read == False]
+				pmList = [pm for pm in duser.pm_inbox if not pm.is_read]
 			else:
 				pmList = duser.pm_inbox
 			%>
 			% if pmList:
 				% for pm in pmList:
 					<tr>
-						<td>${pm.is_read}</td>
+						<td>${"Y" if pm.is_read else "N"}</td>
 						<td><a href="${route_path('pm', id=pm.id)}">${pm.subject or "(No Subject)"}</a></td>
 						<td><a href="${route_path('user', name=pm.user_from.username)}">${pm.user_from.username}</a></td>
 						<td>${render_date(pm.sent_date, raw=True)}</td>

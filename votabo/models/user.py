@@ -56,7 +56,7 @@ class PrivateMessage(Base):
     sent_date = Column(DateTime, nullable=False, default=func.now())
     subject = Column(Unicode, nullable=False)
     message = Column(Unicode, nullable=False)
-    is_read = Column(Boolean, nullable=False, default=False)
+    is_read = Column(BooleanYN, nullable=False, default=False)
 
     user_from = relationship("User", foreign_keys="PrivateMessage.user_from_id", lazy="joined")
     user_to = relationship("User", foreign_keys="PrivateMessage.user_to_id")
