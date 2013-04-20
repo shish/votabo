@@ -20,6 +20,7 @@ from sqlalchemy.orm import (
     scoped_session,
     sessionmaker,
     )
+import sqlalchemy.types as types
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
@@ -32,3 +33,16 @@ logger = logging.getLogger(__name__)
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
+
+class BooleanYN(types.TypeDecorator):
+    '''Stores a boolean value as 'Y' or 'N',
+    because mysql lacks native boolean...
+    '''
+
+    impl = types.Boolean
+
+    def process_bind_param(self, value, dialect):
+        return (u"Y" if value else u"N")
+
+    def process_result_value(self, value, dialect):
+        return (value == u"Y")
