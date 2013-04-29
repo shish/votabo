@@ -20,6 +20,12 @@ def tag_list(request):
     tags = DBSession.query(Tag).order_by(Tag.name)
 
     starts_with = request.GET.get("starts_with", u"a")
+
+    negative = False
+    if starts_with.startswith("-"):
+        starts_with = starts_with[1:]
+        negative = True
+
     if starts_with == "?":  # pragma: no cover -- postgres only
         f = Tag.name.op("~")("^[^a-zA-Z]")
     else:
