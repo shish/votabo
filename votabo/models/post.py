@@ -1,4 +1,5 @@
 from votabo.models.meta import *
+from votabo.lib.balance import balance
 
 
 CONF_THUMB_WIDTH = 192
@@ -28,7 +29,22 @@ class Post(Base):
 
     @property
     def thumb_url(self):
-        return "http://rule34-data-002.paheal.net/_thumbs/%s/thumb.jpg" % (self.fingerprint,)
+        return self.parse_link_template("http://rule34-data-{000=5,001=0,002=10,003=12}.paheal.net/_thumbs/%(hash)s/thumb.jpg")
+
+    @property
+    def image_url(self):
+        return self.parse_link_template("http://rule34-data-{000=5,001=0,002=10,003=12}.paheal.net/_images/%(hash)s/%(id)s%%20-%%20%(tags)s.%(ext)s")
+
+    def parse_link_template(self, tmpl):
+        tmpl = tmpl % {
+            "id": self.id,
+            "hash": self.fingerprint,
+            "tags": self.tags_plain_text,
+            #"base": self.,
+            "ext": "jpg",  # FIXME
+        }
+        tmpl = balance(tmpl)
+        return tmpl
 
     @property
     def thumb_width(self):
@@ -40,10 +56,6 @@ class Post(Base):
 
     def thumbscale(self):
         return min(float(CONF_THUMB_WIDTH) / self.width, float(CONF_THUMB_HEIGHT) / self.height)
-
-    @property
-    def image_url(self):
-        return "http://rule34-data-002.paheal.net/_images/%s/thumb.jpg" % (self.fingerprint,)
 
     # title = Column(Unicode)
     @property

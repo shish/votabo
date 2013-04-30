@@ -22,6 +22,7 @@ requires = [
     'psycopg2',
     'bbcode',
     'dogpile.cache',
+    'flexihash',
 
     # testing
     'nose',
