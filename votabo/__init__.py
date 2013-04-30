@@ -92,8 +92,8 @@ def configure_templates(config):
     config.add_subscriber(add_renderer_globals, 'pyramid.events.BeforeRender')
 
 
-def configure_locale(config):
-    locale.setlocale(locale.LC_ALL, '')
+def configure_locale(config, settings):
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 
 def configure_cache(config, settings):
@@ -135,7 +135,7 @@ def main(global_config, **settings):
 
     configure_routes(config)
     configure_templates(config)
-    configure_locale(config)
+    configure_locale(config, settings)
     configure_cache(config, settings)
     configure_auth(config)
     configure_user(config)

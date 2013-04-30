@@ -1,3 +1,6 @@
+<%!
+import locale
+%>
 <%inherit file="common/base.mako" />
 
 <%block name="bodyclass">front-page</%block>
@@ -30,7 +33,7 @@
 	<div class='space' id='foot'>
 		<small><small>
 			<br><a href='mailto:mailto:staff@paheal.net'>Contact</a> &ndash;
-			Serving ${post_count} posts &ndash;
+			Serving ${locale.format("%d", post_count, grouping=True)} posts &ndash;
 			Running <a href='http://code.shishnet.org/votabo/'>Votabo</a>
 		</small></small>
 	</div>
