@@ -3,6 +3,7 @@ import locale
 %>
 <%inherit file="common/base.mako" />
 
+<%block name="title">${site_title}</%block>
 <%block name="bodyclass">front-page</%block>
 <%block name="fullbody">
 	<h1><a style='text-decoration: none;' href="${route_path('posts')}"><span>${site_title}</span></a></h1>
