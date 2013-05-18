@@ -17,14 +17,14 @@ import webhelpers.util as wu
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
 		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/flick/jquery-ui.css">
-        <link rel="stylesheet" href="${static_url('css/normalize.css')}">
-        <link rel="stylesheet" href="${static_url('css/main.css')}">
-        <link rel="stylesheet" href="${static_url('css/menuh.css')}">
-		<link rel="stylesheet" href="${static_url('css/jquery.tagit.css')}">
-        <link rel="stylesheet" href="${static_url('css/shm-uploader.css')}">
-        <link rel="stylesheet/less" href="${static_url('css/votabo.less')}">
-        <script src="${static_url('js/vendor/modernizr-2.6.2.min.js')}"></script>
-        <script src="${static_url('js/vendor/less-1.3.3.min.js')}"></script>
+        <link rel="stylesheet" href="${static_link('css/normalize.css')}">
+        <link rel="stylesheet" href="${static_link('css/main.css')}">
+        <link rel="stylesheet" href="${static_link('css/menuh.css')}">
+		<link rel="stylesheet" href="${static_link('css/jquery.tagit.css')}">
+        <link rel="stylesheet" href="${static_link('css/shm-uploader.css')}">
+        <link rel="stylesheet/less" href="${static_link('css/votabo.less')}">
+        <script src="${static_link('js/vendor/modernizr-2.6.2.min.js')}"></script>
+        <script src="${static_link('js/vendor/less-1.3.3.min.js')}"></script>
 	</head>
 	<body class="<%block name='bodyclass'></%block>">
 		<%block name="fullbody">
@@ -92,15 +92,15 @@ import webhelpers.util as wu
 		</%block>
 
 		<div class="js">
-			<script src="${static_url('js/vendor/jquery-1.9.0.min.js')}"></script>
-			<script src="${static_url('js/vendor/jquery.timeago-1.0.2.js')}"></script>
-			<script src="${static_url('js/vendor/jquery.cookie-0.0.0.min.js')}"></script>
+			<script src="${static_link('js/vendor/jquery-1.9.0.min.js')}"></script>
+			<script src="${static_link('js/vendor/jquery.timeago-1.0.2.js')}"></script>
+			<script src="${static_link('js/vendor/jquery.cookie-0.0.0.min.js')}"></script>
 			<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
-			<script src="${static_url('js/vendor/jquery.tag-it-2.0.min.js')}" type="text/javascript" charset="utf-8"></script>
-			<script src="${static_url('js/plugins.js')}"></script>
-			<script src="${static_url('js/main.js')}"></script>
-			<script src="${static_url('js/shm-zoomer.js')}"></script>
-			<script src="${static_url('js/shm-uploader.js')}"></script>
+			<script src="${static_link('js/vendor/jquery.tag-it-2.0.min.js')}" type="text/javascript" charset="utf-8"></script>
+			<script src="${static_link('js/plugins.js')}"></script>
+			<script src="${static_link('js/main.js')}"></script>
+			<script src="${static_link('js/shm-zoomer.js')}"></script>
+			<script src="${static_link('js/shm-uploader.js')}"></script>
 			<%block name="javascript"></%block>
 		</div>
 	</body>

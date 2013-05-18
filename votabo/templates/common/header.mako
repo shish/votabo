@@ -2,19 +2,19 @@
 <%namespace file="../user/funcs.mako" import="*" />
 
 <table width="100%"><tr><td>
-	<a href="${route_path('home')}"><img alt="logo" src="${static_url('img/rule34_logo_top.png')}"></a>
+	<a href="${route_path('home')}"><img alt="logo" src="${static_link('img/rule34_logo_top.png')}"></a>
 	<div class="flags">
-		<a href="${route_path('wiki', title='faqeng')}"><img alt="flag" src="${static_url('img/flags/english-flag.png')}"></a>
-		<a href="${route_path('wiki', title='faqger')}"><img alt="flag" src="${static_url('img/flags/german-flag.png')}"></a>
-		<a href="${route_path('wiki', title='faqit')}"><img alt="flag" src="${static_url('img/flags/italian-flag.png')}"></a>
-		<a href="${route_path('wiki', title='faqnl')}"><img alt="flag" src="${static_url('img/flags/dutch-flag.png')}"></a>
-		<a href="${route_path('wiki', title='faqport')}"><img alt="flag" src="${static_url('img/flags/port-flag.png')}"></a>
-		<a href="${route_path('wiki', title='faqesp')}"><img alt="flag" src="${static_url('img/flags/spain-flag.png')}"></a>
-		<a href="${route_path('wiki', title='faqnor')}"><img alt="flag" src="${static_url('img/flags/norway-flag.png')}"></a>
-		<a href="${route_path('wiki', title='faqswe')}"><img alt="flag" src="${static_url('img/flags/swedish-flag.png')}"></a>
-		<a href="${route_path('wiki', title='faqfin')}"><img alt="flag" src="${static_url('img/flags/finnish-flag.png')}"></a>
-		<a href="${route_path('wiki', title='faqru')}"><img alt="flag" src="${static_url('img/flags/russian-flag.png')}"></a>
-		<a href="${route_path('wiki', title='faqchi')}"><img alt="flag" src="${static_url('img/flags/china-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqeng')}"><img alt="flag" src="${static_link('img/flags/english-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqger')}"><img alt="flag" src="${static_link('img/flags/german-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqit')}"><img alt="flag" src="${static_link('img/flags/italian-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqnl')}"><img alt="flag" src="${static_link('img/flags/dutch-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqport')}"><img alt="flag" src="${static_link('img/flags/port-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqesp')}"><img alt="flag" src="${static_link('img/flags/spain-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqnor')}"><img alt="flag" src="${static_link('img/flags/norway-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqswe')}"><img alt="flag" src="${static_link('img/flags/swedish-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqfin')}"><img alt="flag" src="${static_link('img/flags/finnish-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqru')}"><img alt="flag" src="${static_link('img/flags/russian-flag.png')}"></a>
+		<a href="${route_path('wiki', title='faqchi')}"><img alt="flag" src="${static_link('img/flags/china-flag.png')}"></a>
 	</div>
 	<form class="header-search" action="${route_path('posts')}" method="GET">
 		<table class="search"><tr><td width="80%">

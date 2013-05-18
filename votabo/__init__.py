@@ -86,8 +86,10 @@ def configure_templates(config):
         event['has_permission'] = lambda perm: True
         event['static_url'] = lambda name: event["request"].static_url('votabo:static/' + name)
         event['static_path'] = lambda name: event["request"].static_path('votabo:static/' + name)
+        event['static_link'] = lambda name: event["request"].static_path('votabo:static/' + name)
         event['route_url'] = event["request"].route_url
         event['route_path'] = event["request"].route_path
+        event['route_link'] = event["request"].route_path
         event['has_permission'] = _has_permission
     config.add_subscriber(add_renderer_globals, 'pyramid.events.BeforeRender')
 
