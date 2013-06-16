@@ -1,0 +1,123 @@
+/*
+ * vi:ft=css
+ */
+
+* {
+    box-sizing: border-box;
+}
+IMG {
+	box-sizing: content-box;
+}
+
+BODY {
+	font-family: sans-serif;
+	font-size: 14px;
+	background: url(../img/bg.png);
+	margin: 0px;
+	overflow-y: scroll;
+}
+
+HEADER {
+	padding: 0px;
+	border-bottom: 1px solid @border;
+	margin-top: 0px;
+	margin-bottom: 16px;
+	padding: 8px;
+	background: @darkbg;
+	text-align: center;
+}
+FOOTER {
+	clear: both;
+	padding: 8px;
+	font-size: 0.7em;
+	text-align: center;
+	border-top: 1px solid @border;
+	background: @darkbg;
+}
+
+H1 {
+	font-size: 5em;
+	margin: 0px;
+	padding: 0px;
+	A {
+		color: black;
+	}
+}
+H3 {
+	text-align: center;
+	margin: 0px;
+}
+
+TABLE {
+	width: 100%;
+	font-size: 12px;
+}
+TABLE.small {
+	font-size: 9px;
+}
+THEAD {
+	font-weight: bold;
+}
+TD {
+	text-align: center;
+	vertical-align: top;
+}
+
+
+#subtitle {
+	width: 256px;
+	font-size: 0.75em;
+	margin: auto;
+	margin-top: -16px;
+	text-align: center;
+	border: 1px solid black;
+	border-top: none;
+	background: #DDD;
+}
+#flash {
+	background: #FF7;
+	display: block;
+	padding: 8px;
+	margin: 8px;
+	border: 1px solid #882;
+}
+
+*[onclick], H3[class~="shm-toggler"] {cursor: pointer;}
+
+A         {color: @link; text-decoration: none; font-weight: bold;}
+A:hover   {color: @link; text-decoration: underline;}
+A:visited {color: @link; text-decoration: none}
+A:active  {color: @link; text-decoration: underline;}
+
+#image-list {
+	text-align: justify;
+}
+.thumb {
+	width: 226px;
+	display: inline-block;
+	zoom: 1; /* ie6 */
+	*display: inline; /* ie6 */
+	text-align: center;
+	margin-bottom: 8px;
+
+	IMG {
+		border: 1px solid @border;
+		background: @darkbg;
+		padding: 8px;
+	}
+}
+
+
+#paginator {
+	text-align: center;
+	padding: 2em;
+	font-weight: bold;
+
+	.pager_curpage, .pager_link, .pager_dotdot {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+}
+.username {
+	font-weight: bold;
+}

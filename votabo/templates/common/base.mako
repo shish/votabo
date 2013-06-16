@@ -14,6 +14,8 @@ import webhelpers.util as wu
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
+		<link rel='icon' type='image/x-icon' href='${static_link('favicon.ico')}'>
+
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
 		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/flick/jquery-ui.css">

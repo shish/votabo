@@ -1,183 +1,21 @@
 /*
  * vi:ft=css
  */
-* {
-    box-sizing: border-box;
-}
-IMG {
-	box-sizing: content-box;
-}
-
-BODY {
-	font-family: sans-serif;
-	font-size: 14px;
-	background: url(../img/bg.png);
-	margin: 0px;
-	overflow-y: scroll;
-}
-
 @lightbg: #9CD493;
 @darkbg:  #ACE4A3;
 @border:  #7EB977;
 @link:    #000099;
 
-HEADER {
-	padding: 0px;
-	border-bottom: 1px solid @border;
-	margin-top: 0px;
-	margin-bottom: 16px;
-	padding: 8px;
-	background: @darkbg;
-	text-align: center;
-}
-FOOTER {
-	clear: both;
-	padding: 8px;
-	font-size: 0.7em;
-	text-align: center;
-	border-top: 1px solid @border;
-	background: @darkbg;
-}
+@import "vtb_base.less";
+@import "vtb_tables.less";
+@import "vtb_navbar.less";
+@import "vtb_body.less";
 
-H1 {
-	font-size: 5em;
-	margin: 0px;
-	padding: 0px;
-	A {
-		color: black;
-	}
-}
-H3 {
-	text-align: center;
-	margin: 0px;
-}
-
-TABLE {
-	width: 100%;
-	font-size: 12px;
-}
-TABLE.small {
-	font-size: 9px;
-}
-THEAD {
-	font-weight: bold;
-}
-TD {
-	text-align: center;
-	vertical-align: top;
-}
-
-
-#subtitle {
-	width: 256px;
-	font-size: 0.75em;
-	margin: auto;
-	margin-top: -16px;
-	text-align: center;
-	border: 1px solid black;
-	border-top: none;
-	background: #DDD;
-}
-#flash {
-	background: #FF7;
-	display: block;
-	padding: 8px;
-	margin: 8px;
-	border: 1px solid #882;
-}
-
-TABLE.zebra {background: @darkbg; border-collapse: collapse; border: 1px solid @border;}
-TABLE.zebra TD {margin: 0px; border-top: 1px solid @border; padding: 2px;}
-TABLE.zebra TR:nth-child(odd) {background: @lightbg;}
-TABLE.zebra TR:nth-child(even) {background: @darkbg;}
-
-A         {color: @link; text-decoration: none; font-weight: bold;}
-A:hover   {color: @link; text-decoration: underline;}
-A:visited {color: @link; text-decoration: none}
-A:active  {color: @link; text-decoration: underline;}
-
-UL {
-	text-align: left;
-}
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*             the navigation bar, and all its blocks             *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-NAV {
-	width: 250px;
-	float: left;
-	text-align: center;
-	margin-left: 16px;
-
-	.blockbody {
-		font-size: 0.85em;
-		text-align: center;
-	}
-	TABLE {
-		width: 150px;
-	}
-	TD {
-		vertical-align: middle;
-	}
-	INPUT {
-		width: 100%;
-		padding: 0px;
-	}
-	SELECT {
-		width: 100%;
-		padding: 0px;
-	}
-	FORM {
-		margin-top: 8px;
-	}
-}
-
-.more:after {
-	content: " >>>";
-}
-
-.tag_count:before {
-	content: "(";
-}
-.tag_count:after {
-	content: ")";
-}
-
-#paginator .blockbody {
-	background: none;
-	border: none;
-	box-shadow: none;
-}
-
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*                 the main part of each page                     *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-ARTICLE {
-	margin-left: 286px;
-	margin-right: 16px;
-	height: 1%;
-	margin-top: 24px;
-}
-
-ARTICLE SELECT {width: 150px;}
-INPUT, TEXTAREA {box-sizing: border-box;}
-TD>INPUT[type="button"] {width: 100%;}
-TD>INPUT[type="submit"] {width: 100%;}
-TD>INPUT[type="text"] {width: 100%;}
-TD>INPUT[type="password"] {width: 100%;}
-TD>SELECT {width: 100%;}
-TD>TEXTAREA {width: 100%;}
-    
-TABLE.form {width: 300px;}
-TABLE.form TD, TABLE.form TH {vertical-align: middle;}
-TABLE.form TBODY TD {text-align: left;}
-TABLE.form TBODY TH {text-align: right; padding-right: 4px; width: 1%;}
-TABLE.form TD + TH {padding-left: 8px;}
-
-*[onclick], H3[class~="shm-toggler"] {cursor: pointer;}
+@import "tags.less";
+@import "comment.less";
+@import "home.less";
+@import "post.less";
+@import "bans.less";
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -186,10 +24,6 @@ TABLE.form TD + TH {padding-left: 8px;}
 
 #pagelist {
 	margin-top: 32px;
-}
-
-#tagmap A {
-	padding: 8px 4px 8px 4px;
 }
 
 SECTION>.blockbody,
@@ -214,21 +48,6 @@ SECTION>H3 {
 	padding: 8px;
 }
 
-.thumb {
-	width: 226px;
-	display: inline-block;
-	zoom: 1; /* ie6 */
-	*display: inline; /* ie6 */
-	text-align: center;
-	margin-bottom: 8px;
-
-	IMG {
-		border: 1px solid @border;
-		background: @darkbg;
-		padding: 8px;
-	}
-}
-
 div#twitter_update_list li {
 	list-style:none;
 	padding-bottom:0px;
@@ -239,131 +58,17 @@ div#twitter_update_list li {
 	background: url(bg.png);
 }
 
-.username {
-	font-weight: bold;
-}
-
-#bans TD, .image_info TD {
-	vertical-align: middle;
-}
-#bans INPUT {
-	font-size: 0.85em;
-}
-
 .bgtop {
 	width: 100%;
 	height: 113px;
-}
-.bgtop TD {
-	text-align: center;
-}
-.bgtop .flags IMG {
-	width: 25px;
-	height: 16px;
-}
 
-.mini_upload INPUT {
-	width: 100%;
-}
-
-BODY.homepage {
-	text-align: center;
-
-	H1 {
-		font-size: 4em;
-		margin-top: 2em;
+	TD {
+		text-align: center;
 	}
-	A {
-		text-decoration: none;
-	}
-	.linklist {
-		margin-top: 0px;
-		A {
-			margin-left: 12px;
-			margin-right: 12px;
-		}
-	}
-	.footer {
-		font-size: 10px;
-	}
-}
 
-BODY.post-read {
-	.post-info {
-		width: 100%;
-	}
-	.post-info TD {
-		vertical-align: top;
-	}
-	.post-info .ellipsis {
-		max-width: 400px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-}
-.js .post-info .edit {display: none;}
-.js .post-info .view {display: block;}
-.no-js .post-info .edit {display: block;}
-.no-js .post-info .view {display: none;}
-
-
-.comment {
-	text-align: left;
-	position: relative;
-	word-wrap: break-word;
-
-	TEXTAREA,
-	INPUT {
-		width: 100%;
-	}
-}
-.comment:first-child {
-	margin-top: 0px;
-}
-.comment IMG {
-	max-width: 100%;
-}
-.comment .info {
-	background: @darkbg;
-	border: 1px solid @border;
-	visibility: hidden;
-	text-align: center;
-	padding: 8px;
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	z-index: 1;
-	box-shadow: 0px 0px 4px #000;
-	border-radius: 4px;
-}
-.comment:hover .info {
-	visibility: visible;
-}
-
-#comment-list-list .blockbody,
-#comment-list-recent .blockbody,
-#comment-list-image .blockbody,
-#comment-list-user .blockbody {
-	background: none;
-	border: none;
-	box-shadow: none;
-	margin: 0px;
-	padding: 0px;
-}
-
-#image-list {
-	text-align: justify;
-}
-
-#paginator {
-	text-align: center;
-	padding: 2em;
-	font-weight: bold;
-
-	.pager_curpage, .pager_link, .pager_dotdot {
-		padding-left: 8px;
-		padding-right: 8px;
+	.flags IMG {
+		width: 25px;
+		height: 16px;
 	}
 }
 
@@ -374,10 +79,14 @@ UL.tagit {
 		padding: .0em .2em .0em .2em; 
 	} 
 	li.tagit-choice-editable { 
-		padding: .0em 18px .0em .2em; 
+		padding: 2px 18px 1px 4px; 
 	} 
 	li.tagit-new {
 		padding: .0em 4px .0em 0;
+
+		INPUT {
+			height: 24px;
+		}
 	}
 }
 
@@ -393,13 +102,24 @@ UL.tagit {
 	border: 1px solid @border;
 }
 INPUT[type="submit"],
-INPUT[type="button"] {
+INPUT[type="button"],
+INPUT[type="text"],
+INPUT[type="password"],
+TEXTAREA {
 	border: 1px solid @border;
+	border-radius: 2px;
+}
+INPUT[type="submit"],
+INPUT[type="button"],
+INPUT[type="text"],
+INPUT[type="password"] {
+	height: 32px;
+}
+INPUT[type="submit"],
+INPUT[type="button"] {
 	background: @lightbg;
 	color: @link;
 	font-weight: bold;
-	height: 26px;
-	border-radius: 2px;
 }
 .header-search {
 	TABLE {
@@ -414,10 +134,8 @@ INPUT[type="button"] {
 		border-radius: 2px 0px 0px 2px;
 	}
 	INPUT {
-	box-sizing: content-box;
 		border-radius: 0px 2px 2px 0px;
 		border-left: 0px;
-		height: 100%;
 	}
 }
 UL.menu {
@@ -431,27 +149,3 @@ UL.menu {
 	}
 }
 
-BODY.front-page {
-	text-align:center;
-
-	h1 {
-		font-size: 4em;
-		margin-top: 2em;
-		margin-bottom: 0px;
-		text-align: center;
-		border: none;
-		background: none;
-		box-shadow: none;
-		-webkit-box-shadow: none;
-		-moz-box-shadow: none;
-	}
-	.space {
-		margin-bottom: 1em;
-	}
-	div#links a {
-		margin: 0 0.5em;
-	}
-	li {
-		list-style-type: none; margin: 0;
-	}
-}

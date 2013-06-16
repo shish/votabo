@@ -4,7 +4,7 @@
 <%block name="title">${starts_with or "All Tags"}</%block>
 <%block name="header">${starts_with or "All Tags"}</%block>
 
-<section>
+<section id="tag_map">
 	<h3>Tags</h3>
 	<div>
 		% for letter in "abcdefghijklmnopqrstuvwxyz?":

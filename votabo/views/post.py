@@ -63,7 +63,7 @@ def post_list(request):
     sql = DBSession.query(Post).order_by(desc(Post.id))
     sql = query.filter(sql)
     posts = Page(sql, page=page, items_per_page=posts_per_page, url=url_for_page, item_count=_count_posts())
-    return {"posts": posts, "pager": posts}
+    return {"query": request.GET.get("q"), "posts": posts, "pager": posts}
 
 
 @view_config(request_method="GET", route_name='posts/upload', renderer='post/upload.mako')

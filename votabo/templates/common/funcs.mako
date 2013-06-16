@@ -39,13 +39,16 @@ p.add_simple_formatter("img", '<img src="%(value)s" />')
 	styles = []
 
 	if scaled:
-		styles.append("font-size: %.3fem" % math.floor(math.log1p(math.log1p(tag.count - tags_min)) * 1.5 * 100) / 100)
+		size = math.floor(math.log1p(math.log1p(tag.count - tags_min)) * 1.5 * 100) / 100
+		if size < 0.01:
+	 		return ""
+		styles.append("font-size: %.3fem" % size)
 
 	if block:
 		styles.append("display: inline-block;")
 		styles.append("margin-right: 0.5em;")
 	%>
-    <a style="${' '.join(styles)}" href="${route_path('posts', _query={'q': tag.name})}">${tag.name}</a>
+    <a style="${' '.join(styles)}" href="${route_path('posts', _query={'q': tag.name})}">${tag.name.replace("_", " ")}</a>
 	% if count:
 		(${tag.count})
 	% endif

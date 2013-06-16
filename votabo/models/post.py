@@ -1,3 +1,5 @@
+from pyramid.config import global_registries
+
 from votabo.models.meta import *
 from votabo.lib.balance import balance
 
@@ -29,11 +31,15 @@ class Post(Base):
 
     @property
     def thumb_url(self):
-        return self.parse_link_template("http://rule34-data-{000=5,001=0,002=10,003=12}.paheal.net/_thumbs/%(hash)s/thumb.jpg")
+        return self.parse_link_template(
+            global_registries.last.settings.get("votabo.thumb_link", "/thumbs/$(hash)s/thumb.jpg").replace("$", "%")
+        )
 
     @property
     def image_url(self):
-        return self.parse_link_template("http://rule34-data-{000=5,001=0,002=10,003=12}.paheal.net/_images/%(hash)s/%(id)s%%20-%%20%(tags)s.%(ext)s")
+        return self.parse_link_template(
+            global_registries.last.settings.get("votabo.image_link", "/images/$(hash)s/$(id)s$$20-$$20$(tags)s.$(ext)s").replace("$", "%")
+        )
 
     def parse_link_template(self, tmpl):
         tmpl = tmpl % {

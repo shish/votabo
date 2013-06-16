@@ -1,8 +1,8 @@
 <%inherit file="../common/base.mako" />
 <%namespace file="../common/funcs.mako" import="*" />
 
-<%block name="title">${query or "All Posts"}</%block>
-<%block name="header">${query or "All Posts"}</%block>
+<%block name="title">${(query or "").replace("_", " ") or "All Posts"}</%block>
+<%block name="header">${(query or "").replace("_", " ") or "All Posts"}</%block>
 <%block name="navblock_extra">
 	<form action="${route_path('posts')}" method="GET">
 		<input type="text" class="shm-ac-tags" name="q" placeholder="Enter Keywords" value="${request.GET.get('q', '')}">
