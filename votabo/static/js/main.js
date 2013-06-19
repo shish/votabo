@@ -13,7 +13,7 @@ if (typeof String.prototype.endsWith != 'function') {
 function magic(root) {
 	root.find("time").timeago();
 	
-	root.find(".shm-ac-tags").tagit({
+	root.find(".x-shm-ac-tags").tagit({
 		fieldName: "tags",
 		singleFieldDelimiter: " ",
 		placeholder: "Tags",

@@ -107,7 +107,7 @@ class Tag(Base):
 
     @property
     def category(self):
-        return "misc"
+        return "general"
 
     def __str__(self):
         return "<Tag id=%d name=%s count=%d>" % (self.id, self.name, self.count)

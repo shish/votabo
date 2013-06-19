@@ -48,7 +48,7 @@ p.add_simple_formatter("img", '<img src="%(value)s" />')
 		styles.append("display: inline-block;")
 		styles.append("margin-right: 0.5em;")
 	%>
-    <a style="${' '.join(styles)}" href="${route_path('posts', _query={'q': tag.name})}">${tag.name.replace("_", " ")}</a>
+    <a style="${' '.join(styles)}" href="${route_path('posts', _query={'q': tag.name})}" title="${tag.category}">${tag.name.replace("_", " ")}</a>
 	% if count:
 		(${tag.count})
 	% endif

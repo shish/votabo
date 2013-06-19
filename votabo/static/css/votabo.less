@@ -101,10 +101,6 @@ HEADER {
 UL.tagit {
 	border: 1px solid @border;
 }
-INPUT[type="submit"],
-INPUT[type="button"],
-INPUT[type="text"],
-INPUT[type="password"],
 TEXTAREA {
 	border: 1px solid @border;
 	border-radius: 2px;
@@ -112,14 +108,23 @@ TEXTAREA {
 INPUT[type="submit"],
 INPUT[type="button"],
 INPUT[type="text"],
-INPUT[type="password"] {
-	height: 32px;
+INPUT[type="password"],
+INPUT[type="search"] {
+	border: 1px solid @border;
+	border-radius: 2px;
+	height: 24px;
 }
 INPUT[type="submit"],
 INPUT[type="button"] {
 	background: @lightbg;
 	color: @link;
 	font-weight: bold;
+}
+INPUT[type="text"],
+INPUT[type="password"],
+INPUT[type="search"] {
+	padding-left: 4px;
+	padding-right: 4px;
 }
 .header-search {
 	TABLE {
@@ -130,10 +135,11 @@ INPUT[type="button"] {
 	TD {
 		padding: 0px;
 	}
-	UL.tagit {
+	UL.tagit,
+	INPUT[type="search"] {
 		border-radius: 2px 0px 0px 2px;
 	}
-	INPUT {
+	INPUT[type="submit"] {
 		border-radius: 0px 2px 2px 0px;
 		border-left: 0px;
 	}
