@@ -9,20 +9,26 @@ from votabo.models import User
 
 class RootFactory(object):
     __acl__ = [
+        # admin types
         (Allow, "u:Shish", ALL_PERMISSIONS),
         (Allow, "g:admin", ALL_PERMISSIONS),
 
+        # user types
         #(Allow, Authenticated, (
         (Allow, "g:user", (
             'comment-create',
             'pm-list', 'pm-read',
             'alias-list',
         )),
-        (Deny, "g:failures", ALL_PERMISSIONS),
-        (Allow, "g:something", (
-            'something-action',
-        )),
+        #(Deny, "g:failures", ALL_PERMISSIONS),
+        #(Allow, "g:something", (
+        #    'something-action',
+        #)),
 
+        # anon types
+        (Allow, Everyone, (
+            'wiki-read',
+        )),
         (Deny, Everyone, ALL_PERMISSIONS),
     ]
 

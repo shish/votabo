@@ -24,11 +24,11 @@
 				<form action="${route_path('session')}" method="POST">
 					<table class="form" style="width: 100%;">
 						<tr>
-							<td>Username</td>
+							<th>Username</th>
 							<td><input type="text" name="username"></td>
 						</tr>
 						<tr>
-							<td>Password</td>
+							<th>Password</th>
 							<td><input type="password" name="password"></td>
 						</tr>
 						<tr>

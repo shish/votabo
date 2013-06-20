@@ -32,7 +32,7 @@
 				<li><a href="${route_path('posts')}" class="sub_option">Home page</a></li>
 				<li><a href="${route_path('comments')}" class="sub_option">Comments</a></li>
 				<li><a href="${route_path('tags')}" class="sub_option">Tags</a></li>
-				<li><a href="${route_path('post', id=0)}" class="sub_option">Upload</a></li>
+				<li><a href="${route_path('posts/upload')}" class="sub_option">Upload</a></li>
 				<li><a href="${route_path('wiki', title='rules')}" class="sub_option">Site rules</a></li>
 				<li><a href="${route_path('wiki', title='faq')}" class="sub_option">F.A.Q.</a></li>
 				<li><a href="${route_path('wiki', title='staff')}" class="sub_option">Staff</a></li>

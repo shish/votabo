@@ -1,6 +1,7 @@
 from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
+from pyramid.exceptions import NotFound
 
 from sqlalchemy import desc
 from sqlalchemy.exc import DBAPIError
@@ -42,7 +43,10 @@ def wiki_read(request):
     index = _get_page(u"wiki:sidebar")
     page = _get_page(title, request.GET.get("revision"))
     if not page:
-        return HTTPFound(request.route_url("wiki-edit", title=title))
+        #if has_permission("wiki-edit"):
+            return HTTPFound(request.route_url("wiki-edit", title=title))
+        #else:
+        #    raise NotFound()
     return {"index": index, "page": page}
 
 

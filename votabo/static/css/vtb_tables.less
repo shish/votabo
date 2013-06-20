@@ -2,16 +2,28 @@
  * vi:ft=css
  */
 
-TABLE.zebra {background: @darkbg; border-collapse: collapse; border: 1px solid @border;}
-TABLE.zebra TD {margin: 0px; border-top: 1px solid @border; padding: 2px;}
-TABLE.zebra TR:nth-child(odd) {background: @lightbg;}
-TABLE.zebra TR:nth-child(even) {background: @darkbg;}
+TABLE.zebra {
+	background: @darkbg;
+	border-collapse: collapse;
+	border: 1px solid @border;
 
-TABLE.form {width: 300px;}
-TABLE.form TD, TABLE.form TH {vertical-align: middle;}
-TABLE.form TBODY TD {text-align: left;}
-TABLE.form TBODY TH {text-align: right; padding-right: 4px; width: 1%;}
-TABLE.form TD + TH {padding-left: 8px;}
+	TD {
+		margin: 0px;
+		border-top: 1px solid @border;
+		padding: 2px;
+	}
+	TR:nth-child(odd) {background: @lightbg;}
+	TR:nth-child(even) {background: @darkbg;}
+}
+
+TABLE.form {
+	width: 300px;
+
+	TD, TH {vertical-align: middle;}
+	TBODY TD {text-align: left;}
+	TBODY TH {text-align: right; padding-right: 4px; width: 1%;}
+	TD + TH {padding-left: 8px;}
+}
 
 TD>INPUT[type="button"],
 TD>INPUT[type="submit"],
