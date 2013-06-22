@@ -11,10 +11,13 @@
 			<a href="${route_path('tags', _query={'starts_with': letter})}">${letter.upper()}</a>
 		% endfor
 			<br>&nbsp;
-			<form>
+			<form class="searchbutton">
 				<input type="hidden" name="starts_with" value="">
-				<input type="text" placeholder="search for partial tag" name="contains" value="${request.GET.get('contains', '')}">
-				<input type="submit" value="Search">
+				<table class="search"><tr><td width="80%">
+					<input type="text" placeholder="search for partial tag" name="contains" value="${request.GET.get('contains', '')}">
+				</td><td>
+					<input type="submit" value="Search">
+				</td></tr></table>
 			</form>
 		<hr>
 		% for tag in tags:
