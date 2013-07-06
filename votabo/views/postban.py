@@ -19,7 +19,7 @@ from ..lib import cache
 def postban_list(request):
     postbans_per_page = int(request.registry.settings.get("votabo.postbans_per_page", 200))
     page = int(request.GET.get("page", "1"))
-    url_for_page = PageURL(request.url, {'page': page})
+    url_for_page = PageURL(request.path, request.params)
 
     sql = DBSession.query(PostBan).order_by(desc(PostBan.id))
     if request.GET.get("fingerprint"):

@@ -43,7 +43,7 @@ def ipban_create(request):
 def ipban_list(request):
     ipbans_per_page = int(request.registry.settings.get("votabo.ipbans_per_page", 200))
     page = int(request.GET.get("page", "1"))
-    url_for_page = PageURL(request.url, {'page': page})
+    url_for_page = PageURL(request.path, request.params)
 
     sql = DBSession.query(IPBan).order_by(desc(IPBan.id))
     if request.GET.get("ip"):

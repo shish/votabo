@@ -58,7 +58,7 @@ def post_list(request):
     query = PostSearch(request.GET.get("q", ""))
     posts_per_page = int(request.registry.settings.get("votabo.posts_per_page", 24))
     page = int(request.GET.get("page", "1"))
-    url_for_page = PageURL(request.url, {'page': page})
+    url_for_page = PageURL(request.path, request.params)
 
     sql = DBSession.query(Post).order_by(desc(Post.id))
     sql = query.filter(sql)

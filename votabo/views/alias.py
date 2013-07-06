@@ -45,7 +45,7 @@ def alias_create(request):
 def alias_list(request):
     aliases_per_page = int(request.registry.settings.get("votabo.aliases_per_page", 50))
     page = int(request.GET.get("page", "1"))
-    url_for_page = PageURL(request.url, {'page': page})
+    url_for_page = PageURL(request.path, request.params)
 
     sql = DBSession.query(Alias).order_by(Alias.newtag)
     if request.GET.get("oldtag"):

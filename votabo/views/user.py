@@ -37,7 +37,7 @@ def user_update(request):
 def user_list(request):
     users_per_page = int(request.registry.settings.get("votabo.users_per_page", 200))
     page = int(request.GET.get("page", "1"))
-    url_for_page = PageURL(request.url, {'page': page})
+    url_for_page = PageURL(request.path, request.params)
 
     sql = DBSession.query(User).order_by(desc(User.id))
     if request.GET.get("id"):

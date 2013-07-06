@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 def pm_list(request):
     pms_per_page = int(request.registry.settings.get("votabo.pms_per_page", 200))
     page = int(request.GET.get("page", "1"))
-    url_for_page = PageURL(request.url, {'page': page})
+    url_for_page = PageURL(request.path, request.params)
 
     sql = DBSession.query(PrivateMessage).order_by(desc(PrivateMessage.id))
     pms = Page(sql, page=page, items_per_page=pms_per_page, url=url_for_page)
