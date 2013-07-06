@@ -1,5 +1,6 @@
 <%inherit file="../common/base.mako" />
 <%namespace file="../common/funcs.mako" import="*" />
+<%namespace file="../comment/funcs.mako" import="*" />
 
 <%block name="title">${query or "All Comments"}</%block>
 <%block name="header">${query or "All Comments"}</%block>
