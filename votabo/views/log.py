@@ -33,6 +33,6 @@ def log_list(request):
     if request.GET.get("message"):
         sql = sql.filter(LogEvent.message.ilike(request.GET["message"] + "%"))
     if request.GET.get("address"):
-        sql = sql.filter(LogEvent.address == request.GET["address"])
+        sql = sql.filter(LogEvent.address.op("<<=")(request.GET["address"]))
     logs = Page(sql, page=page, items_per_page=logs_per_page, url=url_for_page, item_count=_count_events())
     return {"logs": logs, "pager": logs}
