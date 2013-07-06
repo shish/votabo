@@ -12,3 +12,8 @@ Getting Started
 
 - $venv/bin/pserve development.ini
 
+
+User-facing README:
+-------------------
+
+- see votabo/static/README.txt for now
