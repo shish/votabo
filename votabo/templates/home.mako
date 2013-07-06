@@ -16,7 +16,7 @@ import locale
 	</div>
 
 	<div class='space' id='search'>
-		<form action="${route_path('posts')}" method='GET'>
+		<form action="${route_path('posts')}" method='GET' class="searchbutton">
 			<table style="width: 500px; margin: auto;"><tr><td width="400">
 				<input type="text" class="shm-ac-tags" name="q" placeholder="Enter Keywords" size="36" value="${request.GET.get('q', '')}" />
 			</td><td width="50">
