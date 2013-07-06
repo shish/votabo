@@ -16,6 +16,16 @@ class test_post_list(VotaboTest):
         info = post_list(request)
         self.assertEqual(2, len(info["posts"]))
 
+    def test_search_sort_default(self):
+        request = testing.DummyRequest(GET={})
+        info = post_list(request)
+        self.assertGreater(info["posts"][0].id, info["posts"][1].id)
+
+    def test_search_sort_score(self):
+        request = testing.DummyRequest(GET={"q": u"sort:score"})
+        info = post_list(request)
+        self.assertGreater(info["posts"][0].score, info["posts"][1].score)
+
     def test_nonexist_tag(self):
         request = testing.DummyRequest(GET={"q": u"iasdfasdf"})
         info = post_list(request)

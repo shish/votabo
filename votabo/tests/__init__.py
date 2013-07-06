@@ -47,6 +47,7 @@ class VotaboTest(unittest2.TestCase):
             p1.fingerprint = "0"*32
             p1.tags.append(Tag.get_or_create(u"test-tag"))
             p1.tags.append(Tag.get_or_create(u"cat"))
+            p1.score = 1
 
             self.user0.posts.append(p1)
 
@@ -63,6 +64,7 @@ class VotaboTest(unittest2.TestCase):
             p2.fingerprint = "1"*32
             p2.tags.append(Tag.get_or_create(u"test-tag"))
             p2.tags.append(Tag.get_or_create(u"bacon"))
+            p2.score = 0
 
             self.user1.posts.append(p2)
 
@@ -94,7 +96,7 @@ class VotaboTest(unittest2.TestCase):
 
         cache.slow = cache.make_region()
         cache.fast = cache.make_region()
-        
+
     def mockRequest(self, *args, **kwargs):
         return testing.DummyRequest(
             *args,
