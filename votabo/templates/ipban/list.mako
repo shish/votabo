@@ -37,7 +37,7 @@ from datetime import datetime
 					<td>${ban.reason}</td>
 					<td>${render_username(ban.banner)}</td>
 					<td style="white-space: nowrap;">${render_date(ban.added, raw=True, time=False)}</td>
-					<td style="white-space: nowrap;">${render_date(datetime.fromtimestamp(ban.end_timestamp), raw=True, time=False)}</td>
+					<td style="white-space: nowrap;">${render_date(datetime.fromtimestamp(ban.until), raw=True, time=False)}</td>
 					<form action="${route_path('ipban', id=ban.id)}" method="POST">
 						<td>
 							<input type="hidden" name="_method" value="DELETE" />

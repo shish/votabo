@@ -9,7 +9,7 @@ from datetime import datetime
 
 <section>
 	<h3>IP Bans</h3>
-	<table class="small zebra">
+	<table class="zebra v-mid">
 		<thead>
 			<tr>
 				<th>Hash</th>

@@ -35,7 +35,7 @@ from webhelpers.util import update_params
 				<tr>
 					<td style="white-space: nowrap;">${render_date(log.timestamp, raw=True)}</td>
 					<td><a href="${update_params(request.url, module=log.section, page=1)}">${log.section}</a></td>
-					<td>${log.username}</td>
+					<td>${render_username_str(log.username)}</td>
 					<td><a href="${update_params(request.url, address=log.address, page=1)}">${log.address}</a></td>
 					<td colspan="2">${log.message}</td>
 				</tr>
