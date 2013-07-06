@@ -33,6 +33,6 @@ def balance(tmpl):
                     val, weight = opt, 1
                 _balancers[opts].addTarget(val, int(weight))
 
-        choice = _balancers[opts].lookup(pre + post)
+        choice = _balancers[opts].lookup((pre + post).encode("ascii", "replace"))
         return pre + choice + post
     return tmpl
