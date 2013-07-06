@@ -29,6 +29,8 @@ class Post(Base):
     tags = relationship("Tag", secondary=map_post_tag, order_by=desc("tags.count"))
     comments = relationship("Comment", order_by="Comment.posted")
 
+    score = Column("numeric_score", Integer, nullable=False, default=0)
+
     @property
     def thumb_url(self):
         return self.parse_link_template(

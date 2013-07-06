@@ -41,26 +41,38 @@ class PostSearch(object):
 
     def filter(self, sql):
         plain = []
+        sort = "id"
         for item in self.query:
-            t = Tag.get(item)
-            if not t:
-                logger.info("Couldn't find tag for '%s' - shortcutting", item)
-                sql = sql.filter("1=0")
-            elif t.is_plain_tag():
-                plain.append(t.name)
+            if item.startswith("sort:"):
+                sort = item.partition(":")[2]
+            else:
+                t = Tag.get(item)
+                if not t:
+                    logger.info("Couldn't find tag for '%s' - shortcutting", item)
+                    sql = sql.filter("1=0")
+                elif t.is_plain_tag():
+                    plain.append(t.name)
+
         if plain:
             sql = sql.join(Post.tags).filter(Tag.name.in_(plain)).group_by(Post.id).having(func.count(Post.id) == len(plain))
+
+        if sort == "score":
+            sql = sql.order_by(desc(Post.score))
+        else:
+            sql = sql.order_by(desc(Post.id))
+
         return sql
 
 
 @view_config(request_method="GET", route_name='posts', renderer='post/list.mako')
 def post_list(request):
     query = PostSearch(request.GET.get("q", ""))
+    sort = request.GET.get("sort", "-id")
     posts_per_page = int(request.registry.settings.get("votabo.posts_per_page", 24))
     page = int(request.GET.get("page", "1"))
     url_for_page = PageURL(request.path, request.params)
 
-    sql = DBSession.query(Post).order_by(desc(Post.id))
+    sql = DBSession.query(Post)
     sql = query.filter(sql)
     posts = Page(sql, page=page, items_per_page=posts_per_page, url=url_for_page, item_count=_count_posts())
     return {"query": request.GET.get("q"), "posts": posts, "pager": posts}
