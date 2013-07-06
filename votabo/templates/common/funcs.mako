@@ -58,21 +58,21 @@ p.add_simple_formatter("img", '<img src="%(value)s" />')
 	${p.format(tx.bbcode_extra(request, bbcode)).replace("&amp;#8230;", "...")|n}
 </%def>
 
-<%def name="render_thumb(post, query=None)" cached="True" cache_timeout="120" cache_key="comment-${str(post.id)}-${str(has_permission('post-delete'))}">
-	<div class='shm-thumb thumb' data-tags="${post.tags_plain_text}"
-		><a href='${route_path("post", id=post.id)}'
+<%def name="render_thumb(post, query=None)" cached="True" cache_timeout="120" cache_key="thumb-${str(post.id)}">
+	<div class="shm-thumb thumb" data-tags="${post.tags_plain_text}"
+		><a class="shm-thumb-link" href='${route_path("post", id=post.id)}'
 			><img id="thumb_${post.id}" title="${post.tooltip}" height="${post.thumb_height}" width="${post.thumb_width}" src="${post.thumb_url}"
 		></a>
 		<br><a href="${post.image_url}">Image Only</a>
-		% if has_permission("image-delete"):
+		<span class="need-image-delete">
 			- <a href='#' onclick='image_hash_ban(${post.id}); return false;'>Ban</a>
-		% endif
+		</span>
 	</div>
 </%def>
 
 <%def name="render_thumbfiller()">
 	## fill some space to trigger full-justify on the final line
-	% for n in range(0, 5):
+	% for n in range(0, 8):
 		<div style="width: 226px; height: 0px; display: inline-block;"></div>
 	% endfor
 </%def>

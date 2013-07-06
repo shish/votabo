@@ -1,12 +1,17 @@
 <%!
 import webhelpers.util as wu
 %>
+<%
+classes = []
+if has_permission("image-delete"):
+	classes.append("perm-image-delete")
+classes = " ".join(classes)
+%>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<html>
+<!--[if lt IE 7]>      <html class="${classes} no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="${classes} no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="${classes} no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="${classes} no-js"> <!--<![endif]-->
 	<head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -103,6 +108,7 @@ import webhelpers.util as wu
 			<script src="${static_link('js/main.js')}"></script>
 			<script src="${static_link('js/shm-zoomer.js')}"></script>
 			<script src="${static_link('js/shm-uploader.js')}"></script>
+			<script src="${static_link('js/shm-misc.js')}"></script>
 			<%block name="javascript"></%block>
 		</div>
 	</body>
