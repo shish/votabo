@@ -77,12 +77,16 @@ p.add_simple_formatter("img", '<img src="%(value)s" />')
 	% endfor
 </%def>
 
-<%def name="render_username(user)" filter="trim">
-	% if user.username == "Anonymous":  # FIXME don't hardcode
-		<span class="username">${user.username}</span>
+<%def name="render_username_str(username)" filter="trim">
+	% if username == "Anonymous":  # FIXME don't hardcode
+		<span class="username">${username}</span>
 	% else:
-		<a class="username" href="${route_path('user', name=user.username)}">${user.username}</a>
+		<a class="username" href="${route_path('user', name=username)}">${username}</a>
 	% endif
+</%def>
+	
+<%def name="render_username(user)" filter="trim">
+	${render_username_str(user.username if user else 'None')}
 </%def>
 
 <%def name="render_avatar(user, size=80, float_left=False)" filter="trim">
