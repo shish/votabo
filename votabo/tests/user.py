@@ -35,13 +35,25 @@ class test_user_list(VotaboTest):
         self.assertIn(User.by_name(u"test-admin"), info["users"])
         self.assertIn(User.by_name(u"test-user1"), info["users"])
 
-    def test_posts(self):
+    def test_posts_on(self):
+        request = testing.DummyRequest(GET={"posts": "on"})
+        info = user_list(request)
+        self.assertNotIn(User.by_name(u"test-user1"), info["users"])
+        self.assertNotIn(User.by_name(u"test-admin"), info["users"])
+
+    def test_posts_num(self):
         request = testing.DummyRequest(GET={"posts": "0"})
         info = user_list(request)
         self.assertIn(User.by_name(u"test-user1"), info["users"])
         self.assertIn(User.by_name(u"test-admin"), info["users"])
 
-    def test_comments(self):
+    def test_comments_on(self):
+        request = testing.DummyRequest(GET={"comments": "on"})
+        info = user_list(request)
+        self.assertNotIn(User.by_name(u"test-user1"), info["users"])
+        self.assertNotIn(User.by_name(u"test-admin"), info["users"])
+
+    def test_comments_num(self):
         request = testing.DummyRequest(GET={"comments": "0"})
         info = user_list(request)
         self.assertIn(User.by_name(u"test-user1"), info["users"])

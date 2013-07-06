@@ -20,10 +20,11 @@ from votabo.models import (
 class VotaboTest(unittest2.TestCase):
     def setUp(self):
         self.config = testing.setUp()
+        self.settings = {}
 
         configure_routes(self.config)
         configure_templates(self.config)
-        configure_locale(self.config)
+        configure_locale(self.config, self.settings)
         configure_user(self.config)
         # configure_auth(self.config)
 

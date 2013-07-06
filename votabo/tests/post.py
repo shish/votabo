@@ -21,7 +21,7 @@ class test_post_list(VotaboTest):
         info = post_list(request)
         del info["posts"]
         del info["pager"]
-        self.assertDictEqual(info, {})
+        self.assertDictEqual(info, {'query': u"iasdfasdf"})
 
 
 class test_post_read(VotaboTest):

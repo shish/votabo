@@ -25,7 +25,7 @@ class test_pm_list(VotaboTest):
 class test_pm_create(VotaboTest):
     def test_valid_send(self):
         DBSession.add(self.user0)
-        request = self.mockRequest(user=self.user0, POST={"to": "test-user1", "subject": "message~", "message": "here is some text :3"})
+        request = self.mockRequest(user=self.user0, POST={"to": u"test-user1", "subject": u"message~", "message": u"here is some text :3"})
         info = pm_create(request)
         
         info = pm_list(testing.DummyRequest(user=self.user1))

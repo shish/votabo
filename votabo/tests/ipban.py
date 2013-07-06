@@ -84,7 +84,7 @@ class test_ipban_delete(VotaboTest):
 
         logger.info("Got ban ID: %r" % ban_id)
 
-        info = ipban_delete(testing.DummyRequest(matchdict={"id": ban_id}))
+        info = ipban_delete(testing.DummyRequest(matchdict={"id": ban_id}, referrer="/"))
         self.assertIsInstance(info, HTTPFound)
 
         info = ipban_list(testing.DummyRequest())
