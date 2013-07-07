@@ -45,6 +45,9 @@ class PostSearch(object):
         for item in self.query:
             if item.startswith("sort:"):
                 sort = item.partition(":")[2]
+            elif item.startswith("score:"):
+                score = int(item.partition(":")[2])
+                sql = sql.filter(Post.score == score)
             else:
                 t = Tag.get(item)
                 if not t:
@@ -58,7 +61,9 @@ class PostSearch(object):
 
         if sort == "score":
             sql = sql.order_by(desc(Post.score))
-        else:
+        elif sort == "-posted":
+            sql = sql.order_by(asc(Post.id))
+        else:  # "posted"
             sql = sql.order_by(desc(Post.id))
 
         return sql
@@ -67,7 +72,7 @@ class PostSearch(object):
 @view_config(request_method="GET", route_name='posts', renderer='post/list.mako')
 def post_list(request):
     query = PostSearch(request.GET.get("q", ""))
-    sort = request.GET.get("sort", "-id")
+    sort = request.GET.get("sort", "posted")
     posts_per_page = int(request.registry.settings.get("votabo.posts_per_page", 24))
     page = int(request.GET.get("page", "1"))
     url_for_page = PageURL(request.path, request.params)
