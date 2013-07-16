@@ -25,8 +25,8 @@ logger = logging.getLogger(__name__)
 
 
 @cache.fast.cache_on_arguments(expiration_time=600)
-def _count_posts():
-    return DBSession.query(Post).count()
+def _count_posts(sql):
+    return sql.count()
 
 
 class PostSearch(object):
@@ -79,7 +79,7 @@ def post_list(request):
 
     sql = DBSession.query(Post)
     sql = query.filter(sql)
-    posts = Page(sql, page=page, items_per_page=posts_per_page, url=url_for_page, item_count=_count_posts())
+    posts = Page(sql, page=page, items_per_page=posts_per_page, url=url_for_page, item_count=_count_posts(sql))
     return {"query": request.GET.get("q"), "posts": posts, "pager": posts}
 
 
