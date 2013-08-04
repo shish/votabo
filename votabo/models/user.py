@@ -36,6 +36,12 @@ class User(Base):
     def __str__(self):
         return "<User id=%d username=%s>" % (self.id, self.username)
 
+    def set_password(self, password):
+        self.password = md5(self.username.lower() + password).hexdigest()
+
+    def check_password(self, password):
+        return self.password == md5(self.username.lower() + password).hexdigest()
+
     @staticmethod
     def by_name(username):
         if username:

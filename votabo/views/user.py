@@ -15,6 +15,21 @@ from ..models import (
     Comment,
     )
 
+import logging
+logger = logging.getLogger(__name__)
+
+
+class UserSettingsException(Exception):
+    pass
+
+
+class PasswordChangeException(UserSettingsException):
+    pass
+
+
+def good_password(pw):
+    return len(pw) > 5
+
 
 @view_config(request_method="GET", route_name='user', renderer='user/read.mako')
 def user_read(request):
@@ -23,13 +38,33 @@ def user_read(request):
     return {"duser": duser}
 
 
-@view_config(request_method="PUT", route_name='user')
+#@view_config(request_method="PUT", route_name='user', permission="edit-user-self", match_param={"name": "_self"})
+@view_config(request_method="PUT", route_name='user', permission="edit-user")
 def user_update(request):
     name = request.matchdict["name"]
-    duser = DBSession.query(User).filter(User.username == name).first()
-    # password
-    # pass1 / pass2
-    # email
+    if name == "_self":
+        duser = request.user
+    else:
+        duser = DBSession.query(User).filter(User.username == name).first()
+
+    logger.info("Trying to update info for User %s (%s)" % (duser.username, name))
+
+    if name == "_self" and not duser.check_password(request.POST.get("current_password", "")):
+        raise UserSettingsException("Current password not entered")
+
+    if request.POST.get("new_password_1"):
+        if not good_password(request.POST.get("new_password_1")):
+            raise PasswordChangeException("Too weak")
+        if request.POST.get("new_password_1") != request.POST.get("new_password_2"):
+            raise PasswordChangeException("Passwords don't match")
+        logger.info("Updating password for User %s" % (duser.username))
+        duser.set_password(request.POST["new_password_1"])
+
+    if "email" in request.POST and request.POST["email"] != duser.email:
+        new = request.POST["email"] or None
+        logger.info("Updating email for User %s (%r -> %r)" % (duser.username, duser.email, new))
+        duser.email = new
+
     return HTTPFound(request.referrer or request.route_url('user', name=duser.username))
 
 

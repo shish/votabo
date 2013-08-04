@@ -58,7 +58,7 @@ class VotaboTest(unittest2.TestCase):
             self.user1.username = u"test-user1"
             self.user1.category = "user"
             self.user1.email = "test-user1@example.com"
-            self.user1.password = md5(self.user1.username + "password").hexdigest()
+            self.user1.set_password("password")
 
             p2 = Post()
             p2.fingerprint = "1"*32
@@ -75,7 +75,7 @@ class VotaboTest(unittest2.TestCase):
             self.user2.username = u"test-user2"
             self.user2.category = "user"
             self.user2.email = "test-user2@example.com"
-            self.user2.password = md5(self.user2.username + "password").hexdigest()
+            self.user2.set_password("password")
             DBSession.add(self.user2)
 
             wp1 = WikiPage()

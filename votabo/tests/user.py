@@ -1,7 +1,10 @@
 from pyramid import testing
 from votabo.tests import VotaboTest
-from votabo.views.user import user_read, user_list
-from votabo.models import User
+from votabo.views.user import user_read, user_update, user_list, PasswordChangeException, UserSettingsException
+from votabo.models import (
+    DBSession,
+    User
+)
 
 
 class test_user_list(VotaboTest):
@@ -75,3 +78,130 @@ class test_user_read(VotaboTest):
         del info["duser"]
 
         self.assertDictEqual(info, {})
+
+
+class test_user_update(VotaboTest):
+    def test_self_pass_ok(self):
+        DBSession.add(self.user1)
+        request = testing.DummyRequest(
+            referrer="/",
+            user=self.user1,
+            matchdict={"name": u"_self"},
+            POST={
+                "current_password": "password",
+                "email": "changed@changed.com",
+            }
+        )
+        info = user_update(request)
+        self.assertEqual(self.user1.email, "changed@changed.com")
+
+    def test_self_pass_missing(self):
+        DBSession.add(self.user1)
+        request = testing.DummyRequest(
+            referrer="/",
+            user=self.user1,
+            matchdict={"name": u"_self"},
+            POST={
+                "email": "changed@changed.com",
+            }
+        )
+        self.assertRaises(UserSettingsException, user_update, request)
+
+    def test_self_pass_bad(self):
+        DBSession.add(self.user1)
+        request = testing.DummyRequest(
+            referrer="/",
+            user=self.user1,
+            matchdict={"name": u"_self"},
+            POST={
+                "current_password": "fdgsdgrfsdfg",
+                "email": "changed@changed.com",
+            }
+        )
+        self.assertRaises(UserSettingsException, user_update, request)
+
+    def test_password_ok_other(self):
+        DBSession.add(self.user1)
+        original_password = self.user1.password
+
+        request = testing.DummyRequest(
+            referrer="/",
+            matchdict={"name": u"test-user1"},
+            POST={
+                "new_password_1": "asdf1234",
+                "new_password_2": "asdf1234",
+            }
+        )
+        info = user_update(request)
+
+        self.assertNotEqual(self.user1.password, original_password)
+
+    def test_password_ok_self(self):
+        DBSession.add(self.user1)
+        DBSession.add(self.user2)
+        original_password1 = self.user1.password
+        original_password2 = self.user2.password
+
+        request = testing.DummyRequest(
+            referrer="/",
+            user=self.user2,
+            matchdict={"name": u"_self"},
+            POST={
+                "current_password": "password",
+                "new_password_1": "asdf1234",
+                "new_password_2": "asdf1234",
+            }
+        )
+        info = user_update(request)
+
+        self.assertEqual(self.user1.password, original_password1)
+        self.assertNotEqual(self.user2.password, original_password2)
+
+    def test_password_weak(self):
+        DBSession.add(self.user1)
+        original_password = self.user1.password
+
+        request = testing.DummyRequest(
+            referrer="/",
+            matchdict={"name": u"test-user1"},
+            POST={
+                "new_password_1": "asdf",
+                "new_password_2": "asdf",
+            }
+        )
+        self.assertRaises(PasswordChangeException, user_update, request)
+
+    def test_password_mismatch(self):
+        DBSession.add(self.user1)
+        original_password = self.user1.password
+
+        request = testing.DummyRequest(
+            referrer="/",
+            matchdict={"name": u"test-user1"},
+            POST={
+                "new_password_1": "asdf1234",
+                "new_password_2": "asdf5678",
+            }
+        )
+        self.assertRaises(PasswordChangeException, user_update, request)
+
+    def test_email_set(self):
+        DBSession.add(self.user1)
+        request = testing.DummyRequest(
+            referrer="/",
+            matchdict={"name": u"test-user1"},
+            POST={"email": "changed@changed.com"}
+        )
+        info = user_update(request)
+        self.assertEqual(self.user1.email, "changed@changed.com")
+
+    def test_email_blank(self):
+        DBSession.add(self.user1)
+        request = testing.DummyRequest(
+            referrer="/",
+            matchdict={"name": u"test-user1"},
+            POST={"email": ""}
+        )
+        info = user_update(request)
+        self.assertEqual(self.user1.email, None)
+
