@@ -54,7 +54,7 @@ from votabo.models import PrivateMessage
 		<div class="blockbody">
 			<form method="POST" action="${route_path('pms')}">
 				<input type="hidden" name="to" value="${to.username}">
-				<table class="form" style="width: 400px;">
+				<table class="form" style="width: 400px; margin: auto;">
 					<tr>
 						<td>Subject:</td>
 						<td><input type="text" name="subject" value="${subject}"></td>
