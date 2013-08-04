@@ -33,14 +33,23 @@ from webhelpers.text import truncate
 				<br>Category: ${duser.category}
 				<br>User ID: ${duser.id}
 			</td>
-			% if has_permission("edit-user"):
+			% if has_permission("edit-user") or (has_permission("edit-user-self") and duser.username == request.user.username):
 			<td>
-				<form action="${route_path('user', name=duser.username)}" method="POST">
+				<%
+				if duser.username == request.user.username:
+					target = "_self"
+				else:
+					target = duser.username
+				%>
+				<form action="${route_path('user', name=target)}" method="POST">
+					<input type="hidden" name="_method" value="PUT">
 					<table class="form">
+						% if target == "_self":
 						<tr>
 							<td>Current Password:</td>
 							<td><input type="password" name="current_password"></td>
 						</tr>
+						% endif
 						<tr>
 							<td>Email:</td>
 							<td><input type="text" name="email" value="${duser.email or ''}"></td>
@@ -73,50 +82,6 @@ from webhelpers.text import truncate
 	% if duser.username != request.user.username:
 		${render_pm_composer(duser)}
 	% endif
-% endif
-
-% if duser.username == request.user.username:  # FIXME: or has_permission('change-other-setting')
-<section>
-	<h3>Options</h3>
-	<div>
-		<form action="${route_path('user', name=duser.username)}" method="PUT">
-			<table class="form" style="margin: auto;">
-				<thead>
-					<tr><th colspan="2">Enter Current Password to Change Settings</th></tr>
-				</thead>
-				<tbody>
-					<tr><th>Current Password</th><td><input type="password" name="password" class="jsHook-unlockOnChange" data-unlock=".user-option"></td></tr>
-				</tbody>
-				
-				<tr><th colspan="2">&nbsp;</th></tr>
-
-				<thead>
-					<tr><th colspan="2">Change Password</th></tr>
-				</thead>
-				<tbody>
-					<tr><th>New&nbsp;Password</th><td><input type="password" name="pass1" class="user-option"></td></tr>
-					<tr><th>Repeat&nbsp;New&nbsp;Password</th><td><input type="password" name="pass2" class="user-option"></td></tr>
-				</tbody>
-				
-				<tr><th colspan="2">&nbsp;</th></tr>
-				
-				<thead>
-					<tr><th colspan="2">Change Email</th></tr>
-				</thead>
-				<tbody>
-					<tr><th>Address</th><td><input type="text" name="email" value="${duser.email}" class="user-option"></td></tr>
-				</tbody>
-				
-				<tr><th colspan="2">&nbsp;</th></tr>
-				
-				<tbody>
-					<tr><td colspan="2"><input type="submit" value="Save All" class="user-option"></td></tr>
-				</tbody>
-			</table>
-			
-		</form>
-	</div>
-</section>
 % endif
 
 <section>
