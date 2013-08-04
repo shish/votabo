@@ -23,13 +23,44 @@ from webhelpers.text import truncate
 
 <section>
 	<h3>User Details: ${duser.username}</h3>
-	<div style="text-align: center;">
-		${render_avatar(duser)}
-		<br>Joined: ${render_date(duser.joindate)}
-		<br><a href="${route_path('posts', _query={'q': 'poster='+duser.username})}">Posts</a>: ${duser.post_count}
-		<br><a href="${route_path('comments', _query={'q': 'poster='+duser.username})}">Comments</a>: ${duser.comment_count}
-		<br>Category: ${duser.category}
-		<br>User ID: ${duser.id}
+	<div>
+		<table><tr>
+			<td>
+				${render_avatar(duser)}
+				<br>Joined: ${render_date(duser.joindate)}
+				<br><a href="${route_path('posts', _query={'q': 'poster='+duser.username})}">Posts</a>: ${duser.post_count}
+				<br><a href="${route_path('comments', _query={'q': 'poster='+duser.username})}">Comments</a>: ${duser.comment_count}
+				<br>Category: ${duser.category}
+				<br>User ID: ${duser.id}
+			</td>
+			% if has_permission("edit-user"):
+			<td>
+				<form action="${route_path('user', name=duser.username)}" method="POST">
+					<table class="form">
+						<tr>
+							<td>Current Password:</td>
+							<td><input type="password" name="current_password"></td>
+						</tr>
+						<tr>
+							<td>Email:</td>
+							<td><input type="text" name="email" value="${duser.email or ''}"></td>
+						</tr>
+						<tr>
+							<td>New Password:</td>
+							<td><input type="password" name="new_password_1"></td>
+						</tr>
+						<tr>
+							<td>New Password (Repeat):</td>
+							<td><input type="password" name="new_password_2"></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="submit" value="Save"></td>
+						</tr>
+					</table>
+				</form>
+			</td>
+			% endif
+		</tr></table>
 	</div>
 </section>
 
