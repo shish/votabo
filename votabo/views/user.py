@@ -1,5 +1,6 @@
 from pyramid.response import Response
 from pyramid.view import view_config
+from pyramid.exceptions import NotFound
 from pyramid.httpexceptions import HTTPFound
 
 from sqlalchemy import desc
@@ -35,6 +36,8 @@ def good_password(pw):
 def user_read(request):
     name = request.matchdict["name"]
     duser = DBSession.query(User).filter(User.username == name).first()
+    if not duser:
+        raise NotFound("User '%s' not found" % name)
     return {"duser": duser}
 
 

@@ -1,4 +1,5 @@
 from pyramid import testing
+from pyramid.exceptions import NotFound
 from votabo.tests import VotaboTest
 from votabo.views.user import user_read, user_update, user_list, PasswordChangeException, UserSettingsException
 from votabo.models import (
@@ -78,6 +79,10 @@ class test_user_read(VotaboTest):
         del info["duser"]
 
         self.assertDictEqual(info, {})
+
+    def test_404(self):
+        request = testing.DummyRequest(matchdict={"name": u"non-exister"})
+        self.assertRaises(NotFound, user_read, request)
 
 
 class test_user_update(VotaboTest):
