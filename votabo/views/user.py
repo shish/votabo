@@ -44,6 +44,8 @@ def user_list(request):
         sql = sql.filter(User.id == request.GET["id"])
     if request.GET.get("username"):
         sql = sql.filter(User.username.ilike("%" + request.GET["username"] + "%"))
+    if request.GET.get("email"):   # FIXME: has_permission(edit-user) -- else info could leak by blind searching
+        sql = sql.filter(User.email.ilike("%" + request.GET["email"] + "%"))
     if request.GET.get("posts"):
         sql = sql.filter(User.post_count >= int(request.GET["posts"].replace("on", "1")))
     if request.GET.get("comments"):

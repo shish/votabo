@@ -14,6 +14,9 @@ from datetime import datetime
 			<tr>
 				<th>ID</th>
 				<th>Username</th>
+				% if has_permission("edit-user"):
+				<th>Email Address</th>
+				% endif
 				<th>Posts</th>
 				<th>Comments</th>
 				<th>Category</th>
@@ -23,6 +26,9 @@ from datetime import datetime
 				<form action="${request.url}" method="GET">
 					<td><input type="text" name="id" value="${request.GET.get('id', '')}" /></td>
 					<td><input type="text" name="username" value="${request.GET.get('username', '')}" /></td>
+					% if has_permission("edit-user"):
+					<td><input type="text" name="email" value="${request.GET.get('email', '')}" /></td>
+					% endif
 					<td><input type="checkbox" name="posts" ${'checked="checked"' if request.GET.get('posts') else ''}></td>
 					<td><input type="checkbox" name="comments" ${'checked="checked"' if request.GET.get('comments') else ''}></td>
 					<td><input type="text" name="category" value="${request.GET.get('category', '')}" /></td>
@@ -35,6 +41,9 @@ from datetime import datetime
 				<tr>
 					<td>${duser.id}</td>
 					<td>${render_username(duser)}</td>
+					% if has_permission("edit-user"):
+					<td>${duser.email or '-'}</td>
+					% endif
 					<td><a href="${route_path('posts', _query={'q': 'poster='+duser.username})}">${duser.post_count}</a></td>
 					<td><a href="${route_path('comments', _query={'q': 'poster='+duser.username})}">${duser.comment_count}</a></td>
 					<td>${duser.category}</td>
