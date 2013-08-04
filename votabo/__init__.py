@@ -7,6 +7,7 @@ from pyramid.security import has_permission
 from sqlalchemy import engine_from_config
 import logging
 import locale
+import os
 
 from pyramid.authorization import ACLAuthorizationPolicy
 # from pyramid.authentication import AuthTktAuthenticationPolicy
@@ -54,6 +55,9 @@ def configure_routes(config):
     config.add_route('ipbans', '/ip-bans')
     config.add_route('ipban', '/ip-bans/{id}')
 
+    config.add_route('untags', '/untags')
+    config.add_route('untag', '/untags/{id}')
+
     config.add_route('postbans', '/post-bans')
     config.add_route('postban', '/post-bans/{id}')
 
@@ -83,10 +87,22 @@ def configure_templates(config):
         def _has_permission(name):
             return has_permission(name, RootFactory, event["request"])
 
+        def static_ver(full, name):
+            if full:
+                url = event["request"].static_url('votabo:static/' + name)
+            else:
+                url = event["request"].static_path('votabo:static/' + name)
+
+            fpath = os.path.join(os.path.dirname(__file__), "static", name)
+            if os.path.exists(fpath):
+                url = url + "?ts=" + str(int(os.stat(fpath).st_mtime))
+
+            return url
+
         event['has_permission'] = lambda perm: True
-        event['static_url'] = lambda name: event["request"].static_url('votabo:static/' + name)
-        event['static_path'] = lambda name: event["request"].static_path('votabo:static/' + name)
-        event['static_link'] = lambda name: event["request"].static_path('votabo:static/' + name)
+        event['static_url'] = lambda name: static_ver(True, name)
+        event['static_path'] = lambda name: static_ver(False, name)
+        event['static_link'] = lambda name: static_ver(False, name)
         event['route_url'] = event["request"].route_url
         event['route_path'] = event["request"].route_path
         event['route_link'] = event["request"].route_path

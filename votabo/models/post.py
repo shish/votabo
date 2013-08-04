@@ -163,6 +163,16 @@ class Alias(Base):
         return alias.newtag if alias else name
 
 
+class UnTag(Base):
+    __tablename__ = 'untags'
+    tag = Column(Unicode, primary_key=True, nullable=False)
+    redirect = Column(Unicode, index=True, nullable=False)
+
+    def __init__(self, tag, redirect):
+        self.tag = tag
+        self.redirect = redirect
+
+
 class Comment(Base):
     __tablename__ = "comments"
     id = Column(Integer, primary_key=True, nullable=False)
