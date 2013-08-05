@@ -10,3 +10,8 @@ def c403(request):
     request.response.status = "403 Permission Denied"
     return {}
 
+@view_config(renderer='errors/500.mako', context=Exception)
+def c500(request):
+    request.response.status = "500 Internal Server Error"
+    return {}
+

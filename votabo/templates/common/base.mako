@@ -30,6 +30,9 @@ classes = " ".join(classes)
 		<link rel="stylesheet" href="${static_link('css/jquery.tagit.css')}">
         <link rel="stylesheet" href="${static_link('css/shm-uploader.css')}">
         <link rel="stylesheet/less" href="${static_link('css/votabo.less')}">
+		% if pager and pager.next_page:
+		<link rel="prerender" href="${wu.update_params(request.url, page=pager.next_page)}">
+		% endif
         <script src="${static_link('js/vendor/modernizr-2.6.2.min.js')}"></script>
         <script src="${static_link('js/vendor/less-1.3.3.min.js')}"></script>
 	</head>
