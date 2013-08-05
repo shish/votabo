@@ -24,8 +24,8 @@ from webhelpers.text import truncate
 <section>
 	<h3>User Details: ${duser.username}</h3>
 	<div>
-		<table><tr>
-			<td>
+		<table style="width: auto; margin: auto;"><tr>
+			<td width="300">
 				${render_avatar(duser)}
 				<br>Joined: ${render_date(duser.joindate)}
 				<br><a href="${route_path('posts', _query={'q': 'poster='+duser.username})}">Posts</a>: ${duser.post_count}
@@ -34,7 +34,7 @@ from webhelpers.text import truncate
 				<br>User ID: ${duser.id}
 			</td>
 			% if has_permission("edit-user") or (has_permission("edit-user-self") and duser.username == request.user.username):
-			<td>
+			<td width="300">
 				<%
 				if duser.username == request.user.username:
 					target = "_self"
