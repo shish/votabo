@@ -1,11 +1,5 @@
 <%!
 import math
-import bbcode
-import votabo.lib.template_extras as tx
-
-p = bbcode.Parser()
-p.install_default_formatters()
-p.add_simple_formatter("img", '<img src="%(value)s" />')
 %>
 
 <%def name="add_re(text)"><%
@@ -52,10 +46,6 @@ p.add_simple_formatter("img", '<img src="%(value)s" />')
 	% if count:
 		(${tag.count})
 	% endif
-</%def>
-
-<%def name="render_bbcode(bbcode)">
-	${p.format(tx.bbcode_extra(request, bbcode)).replace("&amp;#8230;", "...")|n}
 </%def>
 
 <%def name="render_thumb(post, query=None)" cached="True" cache_timeout="120" cache_key="thumb-${str(post.id)}">

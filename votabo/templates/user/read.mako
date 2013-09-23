@@ -4,6 +4,7 @@ from webhelpers.text import truncate
 <%inherit file="../common/base.mako" />
 <%namespace file="../common/funcs.mako" import="*" />
 <%namespace file="../pm/funcs.mako" import="*" />
+<%namespace module="votabo.lib.template_extras" import="*" />
 
 <%block name="title">${duser.username}</%block>
 <%block name="header">${duser.username}</%block>

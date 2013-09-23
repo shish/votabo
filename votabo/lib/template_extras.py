@@ -1,11 +1,16 @@
-import re
+import re as _re
+import bbcode as _bbcode
+import logging as _logging
 from webhelpers.html import literal
 
-_bbp_clink = re.compile(">>(\d+)((#c?\d+)?)")  # >>[digit], >>[digit]c[digit]
-_bbp_quote = re.compile("^>>([^\d].+)")        # >>[non-digit][anything]
-_bbp_wiki1 = re.compile("\[\[([^\]\|]+)\]\]")
-_bbp_wiki2 = re.compile("\[\[([^\|]+)\|([^\]]+)\]\]")
-_bbp_site = re.compile("site://([a-zA-Z0-9/]+)")
+_bbp_clink = _re.compile(">>(\d+)((#c?\d+)?)")  # >>[digit], >>[digit]c[digit]
+_bbp_quote = _re.compile("^>>([^\d].+)")        # >>[non-digit][anything]
+_bbp_wiki1 = _re.compile("\[\[([^\]\|]+)\]\]")
+_bbp_wiki2 = _re.compile("\[\[([^\|]+)\|([^\]]+)\]\]")
+_bbp_site = _re.compile("site://([a-zA-Z0-9/]+)")
+
+_log = _logging.getLogger(__name__)
+
 
 def _bbcode_extra(bbcode):
     """
@@ -34,12 +39,15 @@ def _bbcode_extra(bbcode):
     bbcode = bbcode.replace("[ol]", "").replace("[/ol]", "")
     return bbcode
 
-def bbcode_extra(request, bbcode):
-    """
-    >>> import mock
-    >>> r = mock.Mock(u
 
-    """
-    bbcode = _bbcode_extra(bbcode)
+def render_bbcode(context, bbcode):
+    request = context["request"]
+
+    bbp = _bbcode.Parser()
+    bbp.install_default_formatters()
+    bbp.add_simple_formatter("img", '<img src="%(value)s" />')
     bbcode = _bbp_site.sub(request.route_path("home") + "\\1", bbcode)
-    return literal(bbcode)
+
+    html = bbp.format(_bbcode_extra(bbcode)).replace("&amp;#8230;", "...")
+    _log.info("%r -> %r", bbcode, html)
+    return literal(html)
