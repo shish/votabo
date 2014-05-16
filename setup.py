@@ -19,7 +19,7 @@ requires = [
     'waitress',
     'webhelpers',
 
-    'psycopg2',
+    #'psycopg2',
     'bbcode',
     'dogpile.cache',
     'flexihash',
