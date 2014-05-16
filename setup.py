@@ -55,5 +55,6 @@ setup(name='Votabo',
       main = votabo:main
       [console_scripts]
       initialize_votabo_db = votabo.scripts.initializedb:main
+      purged = votabo.scripts.purged:main
       """,
       )
