@@ -115,8 +115,11 @@ def configure_locale(config, settings):
 
 
 def configure_cache(config, settings):
-    cache.fast.configure_from_config(settings, "cache.fast.")
-    cache.slow.configure_from_config(settings, "cache.slow.")
+    try:
+        cache.fast.configure_from_config(settings, "cache.fast.")
+        cache.slow.configure_from_config(settings, "cache.slow.")
+    except Exception:
+        pass
 
 
 def configure_auth(config):
