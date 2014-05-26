@@ -1,5 +1,7 @@
 from votabo.models.meta import *
 
+import bcrypt
+
 
 class User(Base):
     __tablename__ = "users"
@@ -37,10 +39,18 @@ class User(Base):
         return "<User id=%d username=%s>" % (self.id, self.username)
 
     def set_password(self, password):
-        self.password = md5(self.username.lower() + password).hexdigest()
+        self.password = bcrypt.hashpw(password, bcrypt.gensalt())
 
     def check_password(self, password):
-        return self.password == md5(self.username.lower() + password).hexdigest()
+        # Compat for old passwords
+        if md5(self.username.lower() + password).hexdigest() == self.password:
+            self.set_password(password)
+
+        try:
+            return bcrypt.hashpw(password, self.password) == self.password
+        except ValueError:
+            return False  # invalid salt -- stored password /was/ md5, but entered password wasn't correct
+
 
     @staticmethod
     def by_name(username):

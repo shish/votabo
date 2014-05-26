@@ -23,6 +23,7 @@ requires = [
     'bbcode',
     'dogpile.cache',
     'flexihash',
+    'py-bcrypt',
 
     # testing
     'nose',

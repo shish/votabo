@@ -2,8 +2,6 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.security import remember, forget
 
-from hashlib import md5
-
 from ..models import (
     DBSession,
     User,
@@ -24,9 +22,9 @@ def session_create(request):
     password = request.POST.get("password", "")
 
     duser = User.by_name(username)
-    if duser and md5(username.lower() + password).hexdigest() == duser.password:
+    if duser and duser.check_password(password):
         request.response.headers.extend(remember(request, duser))
-        return HTTPFound(request.route_url('user', name=username), headers=request.response.headers)
+        return HTTPFound(request.route_url('user', name=duser.username), headers=request.response.headers)
     else:
         raise SessionException("No user with those details was found")
 
