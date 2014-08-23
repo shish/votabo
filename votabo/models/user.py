@@ -47,7 +47,10 @@ class User(Base):
             self.set_password(password)
 
         try:
-            return bcrypt.hashpw(password, self.password) == self.password
+            # some other libraries (PHP...) use 2y as the version string, when 2a
+            # is the standard...
+            two_a_pass = self.password.replace("$2y$", "$2a$")
+            return bcrypt.hashpw(password, two_a_pass) == two_a_pass
         except ValueError:
             return False  # invalid salt -- stored password /was/ md5, but entered password wasn't correct
 
