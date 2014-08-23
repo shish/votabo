@@ -1,4 +1,5 @@
 <%namespace file="../common/funcs.mako" import="*" />
+<%namespace module="votabo.lib.template_extras" import="*" />
 
 <%def name="render_comment(comment)" cached="True" cache_timeout="120" cache_key="comment-${str(comment.id)}-${str(has_permission('comment-delete'))}">
 	<div class="comment" id="c${comment.id}">
